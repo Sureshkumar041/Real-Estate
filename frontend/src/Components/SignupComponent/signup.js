@@ -53,6 +53,11 @@ class SignUp extends Component {
         fetch(url, requestOptions)
             .then(res => {
                 if (res.ok) console.log('Register Successfully');
+                return res;
+            })
+            .then(data => {
+                console.log("Response: ", data);
+                alert('Register Successfully ...!')
             })
             .catch(err => {
                 console.log(err.message);
@@ -64,27 +69,35 @@ class SignUp extends Component {
             <div className='register my-5'>
                 <form className='position-absolute end-0 mx-4' onSubmit={e => this.Submit(e)}>
                     <div className='mx-5' id='radio'>
-                        <input className='mx-3' type='radio' onChange={e => this.HandleChange(e)} name='role' value='Buyer' required></input>
+                        <input className='mx-3' type='radio' onChange={e => this.HandleChange(e)}
+                            name='role' value='Buyer' required ></input>
                         <label>Buyer</label>
                         <span className='mx-5'>
-                            <input className='mx-3' type='radio' onChange={e => this.HandleChange(e)} name='role' value='Seller' required></input>
+                            <input className='mx-3' type='radio' onChange={e => this.HandleChange(e)}
+                                name='role' value='Seller' required ></input>
                             <label>Seller</label>
                         </span>
                     </div>
                     <div className='form-floating my-2'>
-                        <input className='form-control rounded-pill' onChange={e => this.HandleChange(e)} name='email' placeholder='example@gmail.com' required></input>
+                        <input className='form-control rounded-pill' type='email' onChange={e => this.HandleChange(e)}
+                            name='email' placeholder='example@gmail.com' required ></input>
                         <label className='px-3'>Email address</label>
                     </div>
                     <div className='form-floating my-2'>
-                        <input className='form-control rounded-pill' onChange={e => this.HandleChange(e)} name='userName' placeholder='username' required></input>
+                        <input className='form-control rounded-pill' onChange={e => this.HandleChange(e)}
+                            name='userName' placeholder='username' required ></input>
                         <label className='px-3'>User name</label>
                     </div>
                     <div className='form-floating my-2'>
-                        <input className='form-control rounded-pill' onChange={e => this.HandleChange(e)} name='phoneNumber' placeholder='phonenumber' required></input>
+                        <input className='form-control rounded-pill' onChange={e => this.HandleChange(e)}
+                            pattern='(?<!\d)\d{10}(?!\d)' title='Invalid phone number' name='phoneNumber'
+                            placeholder='phonenumber' required  ></input>
                         <label className='px-3'>Phone number</label>
                     </div>
                     <div className="form-floating my-2">
-                        <input type="password" className="form-control rounded-pill" onChange={e => this.HandleChange(e)} name='password' placeholder="password" required></input>
+                        <input type="password" className="form-control rounded-pill" onChange={e => this.HandleChange(e)}
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                            title='Password must be strong' name='password' placeholder="password" required  ></input>
                         <label className='px-3'>Password</label>
                     </div>
                     <div className='row my-2 px-3'>

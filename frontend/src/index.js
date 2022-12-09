@@ -14,6 +14,7 @@ root.render(
       <Route path='/' element={<App/>}></Route>
       <Route path='/signup' element={<SignupComponent />}></Route>
       <Route path='/login' element={<LoginComponent/>}></Route>
+      <Route path='*' element={'Ramuk innum avlo page ready pannule'}/>
     </Routes>
   </BrowserRouter>
 );
