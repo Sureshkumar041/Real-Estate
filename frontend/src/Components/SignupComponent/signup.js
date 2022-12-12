@@ -19,19 +19,26 @@ class SignUp extends Component {
         }
     }
 
+    Connect = () => {
+        console.log('Connect function');
+        return (
+            <>
+                <redirect to={'/login'}></redirect>
+            </>
+        )
+    }
+
     HandleChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         });
     }
 
-    Submit = (e) => {
+    Submit = async (e) => {
         e.preventDefault();
         console.log("Submit");
         const { role, email, userName, phoneNumber, password } = this.state;
-        // if (role === '' && email === '' && userName === '' && phoneNumber === '' && password === '') {
-        //     alert("")
-        // }
+
         const data = {
             role,
             email,
@@ -50,18 +57,27 @@ class SignUp extends Component {
             body: JSON.stringify(data)
         }
 
-        fetch(url, requestOptions)
-            .then(res => {
-                if (res.ok) console.log('Register Successfully');
-                return res;
+        await fetch(url, requestOptions)
+            .then(async res => {
+                if (res.status >= 200 && res.status <= 299) {
+                    console.log("Response: ", res.json({ "message": res.message }));
+                    alert('Register successfully...!');
+                    console.log("Status code: ", res.status);
+                    return res;
+                } else {
+                    // throw new Error(await res.json({'Message' : res.message}));
+                    console.log("Status code: ", res.status);
+                    alert('User name or email address already exists')
+                    return res;
+                }
             })
             .then(data => {
-                console.log("Response: ", data);
-                alert('Register Successfully ...!')
+                console.log("Promise: ", data);
             })
             .catch(err => {
                 console.log(err.message);
             })
+
     }
 
     render() {
