@@ -70,6 +70,7 @@ class SignUp extends Component {
                 }
             })
             .then(data => {
+                
                 console.log("Promise: ", data);
             })
             .catch(err => {

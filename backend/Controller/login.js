@@ -4,6 +4,7 @@ const crypto = require('crypto-js');
 
 const login = async (req, res, next) => {
     const { userName, password } = req.body;
+    let data = {}, status, msg, info;
 
     const validateUser = (await sellerSchema.findOne({ userName: userName }) || await sellerSchema.findOne({ email: userName })) || (await buyerSchema.findOne({ userName: userName }) ||
         await buyerSchema.findOne({ email: userName }));
@@ -16,6 +17,7 @@ const login = async (req, res, next) => {
             "Status": state,
             "Message": msg
         });
+        // return res.data;
     }
 
     if (validateUser) {
@@ -24,7 +26,14 @@ const login = async (req, res, next) => {
         console.log("User password: ", decrypt);
 
         if (password === decrypt) {
-            sendResponse(200, 'Success', 'Login successfully');
+            // status =200,msg=
+            // sendResponse(200, 'Success', 'Login successfully');
+            data = {
+                status: 200,
+                msg: 'Login successfully',
+                info: validateUser
+            }
+            res.send(data);
             return true;
         } else {
             sendResponse(400, 'Failed', 'Invalid password');

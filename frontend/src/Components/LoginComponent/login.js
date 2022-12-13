@@ -10,7 +10,8 @@ class Login extends Component {
         this.state = {
             userName: '',
             password: '',
-            data: {}
+            data: {},
+            details: []
         };
     }
 
@@ -43,25 +44,25 @@ class Login extends Component {
         await fetch(url, requestOptions)
             .then(async res => {
                 if (res.status >= 200 && res.status <= 299) {
-                    console.log("Response: ", res.json({ "message": res.message }));
-                    alert('Login Successfully...!');
-                    // redirect
-                    console.log("Status code: ", res.status);
-                    return res;
+                    // const details = res.json();
+                    this.setState({details : res.json()})
+                    // return res.json();      
                 } else {
-                    // throw new Error(await res.json({'Message' : res.message}));
-                    console.log("Response: ", res.json({ "message": res.message }));
                     console.log("Status code: ", res.status);
                     alert('Invalid user name or password')
                     return res;
                 }
             })
-            .then(data => {
-                console.log("Promise: ", data);
+            .then(detailss => {
+                console.log("DETAILS: ",this.state.details);
+                // this.setState({details : detailss })
+                console.log("Promise: ", detailss);
             })
             .catch(err => {
                 console.log(err.message);
             })
+        // const {details} = this.state;
+        console.log("Details: ",this.state.info);
     }
 
     render() {
