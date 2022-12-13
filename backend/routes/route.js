@@ -5,6 +5,6 @@ const login = require('../Controller/login')
 
 // Signup API
 route.post('/realestate/signup',signup);
-route.get('/realestate/login',login);
+route.post('/realestate/login',login);
 
 module.exports = route;

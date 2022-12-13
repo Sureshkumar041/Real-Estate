@@ -1,5 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-// import Login from '../LoginComponent/login';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import App from '../../App';
