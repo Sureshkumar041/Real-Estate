@@ -1,5 +1,8 @@
 import App from '../../App';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link} from 'react-router-dom';
+// import { Navigation} from 'react-router';
+import {withRouter} from 'react-router';
 import './login.css';
 import { Component } from 'react';
 
@@ -11,7 +14,8 @@ class Login extends Component {
             userName: '',
             password: '',
             data: {},
-            details: []
+            details: [],
+
         };
     }
 
@@ -22,6 +26,13 @@ class Login extends Component {
         });
     }
 
+    nxtPage=()=>{
+        console.log("Navigate route");
+        // this.props.navigate('/admin');
+        // this.context.router.push('');
+        const {history} = this.props;
+        history.push('/admin');
+    }
 
     Signin = async (e) => {
         e.preventDefault();
@@ -32,11 +43,6 @@ class Login extends Component {
             userName,
             password
         };
-
-        const connecter = () => {
-            const navigate = useNavigate();
-            navigate('/contacts');
-        }
 
         const url = 'http://localhost:3333/realestate/login';
         const requestOptions = {
@@ -50,17 +56,14 @@ class Login extends Component {
         await fetch(url, requestOptions)
             .then(async res => {
                 const fetchdata = await res.json();
-                console.log("fetch", fetchdata)
-                const navigate = useNavigate();
+                console.log("fetch", fetchdata);
                 if (res.status >= 200 && res.status <= 299) {
-                    // this.redirectToHome();
-                    // return res.json();
                     this.setState({ details: fetchdata.data.info })
-                    connecter();
-
+                    // history.push('/admin');
+                    // this.context.history.push('/admin'); 
+                    this.nxtPage();
                 } else {
                     this.setState({ details: fetchdata.data.info })
-                    // return res.json();
                 }
             })
             .then(detailss => console.log(detailss))
@@ -72,6 +75,7 @@ class Login extends Component {
 
     render() {
         console.log("info:", this.state.details);
+        // const {history} = this.props;
 
         // const { history } = this.props;
         return (
@@ -99,13 +103,20 @@ class Login extends Component {
     }
 };
 
-const LoginComponent = () => {
+Login.contextType={
+    router: React.PropTypes.object.isRequired
+}
+
+export default withRouter(Login);
+
+export const LoginComponent = () => {
+    // const navigate = useNavigate()
     return (
         <>
-            <App />
+            <App/>
             <Login />
         </>
     )
 }
 
-export default LoginComponent;
+// export default LoginComponent;

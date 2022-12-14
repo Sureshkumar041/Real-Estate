@@ -55,7 +55,8 @@ const signup = async (req, res, next) => {
     }
     catch (error) {
         console.log(error.message);
-        sendResponse(400, 'Falied', error.message)
+        // sendResponse(400, 'Falied', error.message)
+        return next();
     }
     next();
 };

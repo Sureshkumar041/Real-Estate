@@ -6,6 +6,7 @@ const login = async (req, res, next) => {
     const { userName, password } = req.body;
     let data = {}, status, msg, info;
 
+    console.log("User seller in : ",await sellerSchema.findOne({ userName: userName }));
     const validateUser = (await sellerSchema.findOne({ userName: userName }) || await sellerSchema.findOne({ email: userName })) || (await buyerSchema.findOne({ userName: userName }) ||
         await buyerSchema.findOne({ email: userName }));
 
@@ -34,12 +35,22 @@ const login = async (req, res, next) => {
             res.send({data:data});
             return true;
         } else {
-            sendResponse(400, 'Failed', 'Invalid password');
+            data = {
+                status: 400,
+                msg: 'Login failed',
+                info: 'Invalid password'
+            }
+            res.send({data:data});
             return true;
         }
 
     } else {
-        sendResponse(400, 'Failed', 'Invalid user name');
+        data = {
+            status: 400,
+            msg: 'Login failed',
+            info: 'Invalid user name'
+        }
+        res.send({data:data});
         return true;
     }
 }
