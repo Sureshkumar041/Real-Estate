@@ -14,8 +14,8 @@ const signup = async (req, res, next) => {
         }
 
         // Checking if  username and email already exists or not ...!
-        const buyerUser = await buyerSchema.findOne({ userName: req.body.userName }) || await buyerSchema.findOne({ email: req.body.email });
-        const sellerUser = await sellerSchema.findOne({ userName: req.body.userName }) || await sellerSchema.findOne({ email: req.body.email });
+        const buyerUser = await buyerSchema.findOne({ userName: userName }) || await buyerSchema.findOne({ email: email });
+        const sellerUser = await sellerSchema.findOne({ userName: userName }) || await sellerSchema.findOne({ email: email });
 
         console.log("Buyer user: ", buyerUser, "Seller user: ", sellerUser);
 
@@ -55,7 +55,7 @@ const signup = async (req, res, next) => {
     }
     catch (error) {
         console.log(error.message);
-        sendResponse(400,'Falied',error.message)
+        sendResponse(400, 'Falied', error.message)
     }
     next();
 };

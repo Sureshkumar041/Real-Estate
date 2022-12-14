@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginComponent from './Components/LoginComponent/login';
 import SignupComponent from './Components/SignupComponent/signup';
+import Homepage from './Components/HomepageComponent/homepage'
+import Dashboard from './Components/DashboardComponent/dashboard';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,6 +16,8 @@ root.render(
       <Route path='/' element={<App/>}></Route>
       <Route path='/signup' element={<SignupComponent />}></Route>
       <Route path='/login' element={<LoginComponent/>}></Route>
+      <Route path='/home' element={<Homepage/>}></Route>
+      <Route path='/admin' element={<Dashboard/>}></Route>
       <Route path='*' element={'Ramuk innum avlo page ready pannule'}/>
     </Routes>
   </BrowserRouter>

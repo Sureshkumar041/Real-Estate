@@ -70,7 +70,7 @@ class SignUp extends Component {
                 }
             })
             .then(data => {
-                
+
                 console.log("Promise: ", data);
             })
             .catch(err => {
@@ -93,34 +93,34 @@ class SignUp extends Component {
                             <label>Seller</label>
                         </span>
                     </div>
-                    <div className='form-floating my-2'>
-                        <input className='form-control rounded-pill' type='email' onChange={e => this.HandleChange(e)}
+                    <div className='my-2'>
+                        <label>Email address</label>
+                        <input className='form-control border-0 bg-secondary bg-opacity-25' type='email' onChange={e => this.HandleChange(e)}
                             name='email' placeholder='example@gmail.com' required ></input>
-                        <label className='px-3'>Email address</label>
                     </div>
-                    <div className='form-floating my-2'>
-                        <input className='form-control rounded-pill' onChange={e => this.HandleChange(e)}
+                    <div className='my-2'>
+                        <label>User name</label>
+                        <input className='form-control border-0 bg-secondary bg-opacity-25' onChange={e => this.HandleChange(e)}
                             name='userName' placeholder='username' required ></input>
-                        <label className='px-3'>User name</label>
                     </div>
-                    <div className='form-floating my-2'>
-                        <input className='form-control rounded-pill' onChange={e => this.HandleChange(e)}
+                    <div className=' my-2'>
+                        <label>Phone number</label>
+                        <input className='form-control border-0 bg-secondary bg-opacity-25' onChange={e => this.HandleChange(e)}
                             pattern='(?<!\d)\d{10}(?!\d)' title='Invalid phone number' name='phoneNumber'
                             placeholder='phonenumber' required  ></input>
-                        <label className='px-3'>Phone number</label>
                     </div>
-                    <div className="form-floating my-2">
-                        <input type="password" className="form-control rounded-pill" onChange={e => this.HandleChange(e)}
+                    <div className="my-2">
+                        <label>Password</label>
+                        <input type="password" className="form-control border-0 bg-secondary bg-opacity-25" onChange={e => this.HandleChange(e)}
                             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                             title='Password must be strong' name='password' placeholder="password" required  ></input>
-                        <label className='px-3'>Password</label>
                     </div>
                     <div className='row my-2 px-3'>
-                        <button className='btn btn-primary rounded-4 my-2' type='Submit'>Submit</button>
+                        <button className='btn bg-info bg-opacity-75 my-2' type='Submit'>Submit</button>
                         {/* <button className='btn btn-outline-primary rounded-4'>Login</button> */}
                     </div>
                     <Link to={'/login'} className='row text-decoration-none px-3'>
-                        <button className='btn btn-outline-primary rounded-4'>Login</button>
+                        <button className='btn btn-outline-info'>Login</button>
                     </Link>
                 </form>
             </div>
@@ -128,6 +128,7 @@ class SignUp extends Component {
     }
 
 }
+
 const SignupComponent = () => {
     return (
         <div>

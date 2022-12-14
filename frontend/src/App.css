@@ -1,3 +1,8 @@
-.first{
-  background-color: #205bc9;
+header {
+  height: 10vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
 }

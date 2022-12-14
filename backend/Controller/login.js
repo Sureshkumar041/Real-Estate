@@ -26,14 +26,12 @@ const login = async (req, res, next) => {
         console.log("User password: ", decrypt);
 
         if (password === decrypt) {
-            // status =200,msg=
-            // sendResponse(200, 'Success', 'Login successfully');
             data = {
                 status: 200,
                 msg: 'Login successfully',
                 info: validateUser
             }
-            res.send(data);
+            res.send({data:data});
             return true;
         } else {
             sendResponse(400, 'Failed', 'Invalid password');

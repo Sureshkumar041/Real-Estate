@@ -1,6 +1,6 @@
 import App from '../../App';
-import { Link } from 'react-router-dom';
-import './login.css'
+import { Link, useNavigate } from 'react-router-dom';
+import './login.css';
 import { Component } from 'react';
 
 class Login extends Component {
@@ -14,6 +14,7 @@ class Login extends Component {
             details: []
         };
     }
+
 
     HandleChange = e => {
         this.setState({
@@ -32,6 +33,11 @@ class Login extends Component {
             password
         };
 
+        const connecter = () => {
+            const navigate = useNavigate();
+            navigate('/contacts');
+        }
+
         const url = 'http://localhost:3333/realestate/login';
         const requestOptions = {
             method: 'POST',
@@ -43,47 +49,49 @@ class Login extends Component {
 
         await fetch(url, requestOptions)
             .then(async res => {
+                const fetchdata = await res.json();
+                console.log("fetch", fetchdata)
+                const navigate = useNavigate();
                 if (res.status >= 200 && res.status <= 299) {
-                    // const details = res.json();
-                    this.setState({details : res.json()})
-                    // return res.json();      
+                    // this.redirectToHome();
+                    // return res.json();
+                    this.setState({ details: fetchdata.data.info })
+                    connecter();
+
                 } else {
-                    console.log("Status code: ", res.status);
-                    alert('Invalid user name or password')
-                    return res;
+                    this.setState({ details: fetchdata.data.info })
+                    // return res.json();
                 }
             })
-            .then(detailss => {
-                console.log("DETAILS: ",this.state.details);
-                // this.setState({details : detailss })
-                console.log("Promise: ", detailss);
-            })
+            .then(detailss => console.log(detailss))
             .catch(err => {
                 console.log(err.message);
             })
-        // const {details} = this.state;
-        console.log("Details: ",this.state.info);
     }
 
+
     render() {
+        console.log("info:", this.state.details);
+
+        // const { history } = this.props;
         return (
             <div className='login my-3 mx-4 w-25'>
-                <form onSubmit={e => this.Signin(e)}>
-                    <div className='form-floating my-2'>
-                        <input className='form-control rounded-pill' onChange={e => this.HandleChange(e)} id='userName'
+                <form onSubmit={e => this.Signin(e)} className=''>
+                    <div className='my-2'>
+                        <label className='form-comtrol'>Email address</label>
+                        <input className='form-control border-0 bg-secondary bg-opacity-25' onChange={e => this.HandleChange(e)} id='userName'
                             placeholder='example@gmail.com' required></input>
-                        <label className='px-3'>Email address</label>   
                     </div>
-                    <div className="form-floating my-2">
-                        <input type="password" className="form-control rounded-pill" onChange={e => this.HandleChange(e)}
-                            id="password" placeholder="password" required></input>
-                        <label className='px-3'>Password</label>
+                    <div className="my-2">
+                        <label className='form-comtrol'>Password</label>
+                        <input type="password" className="form-control border-0 bg-secondary bg-opacity-25" onChange={e => this.HandleChange(e)}
+                            id="password" placeholder="Enter the password" required></input>
                     </div>
                     <div className='row my-2 px-3'>
-                        <button className='btn btn-primary rounded-4'>Login</button>
+                        <button className='btn bg-info bg-opactity-75 '>Login</button>
                     </div>
                     <Link to={'/signup'} className='row text-decoration-none px-3'>
-                        <button className='btn btn-outline-primary rounded-4'>SignUp</button>
+                        <button className='btn btn-outline-info'>SignUp</button>
                     </Link>
                 </form>
             </div >
