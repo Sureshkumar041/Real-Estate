@@ -8,8 +8,8 @@ function App() {
     <div>
       <header>
         <div class="row header bg-info bg-opacity-75">
-          <div class="col-2 my-2 text-dark">
-            <p className='py-2 mx-3'>Real Estate</p>
+          <div class="col-2 my-4 my-2 text-dark">
+            <p className='mx-3 fs-4 fw-bold font-monospace'>Real Estate</p>
           </div>
           <div class="col-2 location my-2">
             <select class="form-select rounded-pill">
