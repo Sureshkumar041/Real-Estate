@@ -9,7 +9,7 @@ import SignUp from './Components/SignupComponent/signup';
 import Homepage from './Components/HomepageComponent/homepage'
 import Dashboard from './Components/DashboardComponent/dashboard';
 import Seller from './Components/SellerComponent/seller';
-import Postproperty from './Components/PostPropertyComponent/postproperty';
+import PostProperty from './Components/PostPropertyComponent/postproperty';
 import BuyerComponent from './Components/BuyerComponent/buyer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -24,7 +24,7 @@ root.render(
       <Route path='/home' element={<Homepage />} />
       <Route path='/admin' element={<Dashboard />} />
       <Route path='/seller' element={<Seller />} />
-      <Route path='/postproperty' element={<Postproperty />} />
+      <Route path='/postproperty' element={<PostProperty />} />
       <Route path='/buyer' element={<BuyerComponent />} />
       <Route path='*' element={<p className='text-center my-5'>Page Not Found : 404 Error</p>} />
     </Routes>

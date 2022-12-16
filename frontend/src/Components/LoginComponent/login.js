@@ -104,14 +104,3 @@ class Login extends Component {
 };
 
 export default withRouter(Login);
-
-// export const LoginComponent = () => {
-//     return (
-//         <>
-//             <App />
-//             <Login />
-//         </>
-//     )
-// }
-
-// export default withRouter(LoginComponent);
