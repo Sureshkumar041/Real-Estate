@@ -8,7 +8,8 @@ const connect = require('./config/database');
 app.use(cors());
 app.use(express.json());
 app.use('/',require('./routes/route'));
-app.use('/',require('./routes/route'))
+app.use('/',require('./routes/route'));
+// app.use('/',require())
 
 
 // Set port , listen for request
