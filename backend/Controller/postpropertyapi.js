@@ -2,6 +2,7 @@ const propertySchema = require('../model/postproperty');
 
 const imageStore = (req, res, next) => {
     try {
+        console.log("Property Api");
         var property = new propertySchema(req.body);
 
         console.log("Request files: ", req.files);

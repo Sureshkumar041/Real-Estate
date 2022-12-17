@@ -31,7 +31,7 @@ class Login extends Component {
                 this.props.navigate('/seller');
             } else if (fetchdata.data.info.role === 'Buyer') {
                 this.props.navigate('/buyer');
-            } else {
+            } else if (fetchdata.data.info.role === 'Admin') {
                 this.props.navigate('/admin');
             }
         }
