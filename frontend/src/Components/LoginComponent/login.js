@@ -14,7 +14,7 @@ class Login extends Component {
             userName: '',
             password: '',
             data: {},
-            details: [],
+            details: []
         };
     }
 
@@ -35,7 +35,6 @@ class Login extends Component {
                 this.props.navigate('/admin');
             }
         }
-        return true;
     }
 
     Signin = async (e) => {
@@ -61,12 +60,13 @@ class Login extends Component {
             .then(async res => {
                 const fetchdata = await res.json();
                 console.log("fetch", fetchdata);
-                if (res.status >= 200 && res.status <= 299) {
+                if (fetchdata.data.status >= 200 && fetchdata.data.status <= 299) {
                     localStorage.setItem('userdetails', JSON.stringify(fetchdata.data.info));
                     this.setState({ details: fetchdata.data.info })
                     this.nxtPage(fetchdata);
                 } else {
                     this.setState({ details: fetchdata.data.info });
+                    alert(fetchdata.data.info)
                 }
             })
             .catch(err => {

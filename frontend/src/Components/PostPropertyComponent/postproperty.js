@@ -1,7 +1,6 @@
 import './postproperty.css'
 import Seller from '../SellerComponent/seller';
 import { useState } from 'react';
-import { json } from 'react-router';
 
 export function Property() {
 
@@ -22,12 +21,10 @@ export function Property() {
             const files = [...e.target.files];
             const allImage = [];
             files.forEach(element => {
-                console.log("2");
                 allImage.push(element);
             });
             console.log("All image: ", allImage);
             setImage(allImage);
-            // console.log("images: ", await image);
         }
     }
 
@@ -37,35 +34,37 @@ export function Property() {
         console.log('Image: ',image);
 
         const formData = new FormData(document.getElementById('form'));
-        // image.forEach(img => {
-        //     formData.append("image", img);
-        // });
-
         formData['image'] = image;
+        
+        image.forEach(element => {
+            formData.append("image",element.name );
+            console.log('Element: ',element);
+        });
+
+        // formData['image'] = [...image];
         console.log("Image array: ",formData['image']);
         const res = Object.fromEntries(formData);
-        // const payload = JSON.stringify(res);
 
-        let item;
-        for(item of formData){
-            console.log(item[0],item[1]);
-        }
+        // let item;
+        // for(item of formData){
+        //     console.log(item[0],item[1]);
+        // }
 
         // formData.forEach(element => {
         //     console.log(element);
         // });
 
-        // formData.append('Address', address);
-        // formData.append('City', city);
-        // formData.append('State', state);
-        // formData.append('Pin code', pincode);
-        // formData.append('Image', image);
-        // formData.append('Type', type);
-        // formData.append('Sqft', sqft);
-        // formData.append('Rate', rate);
-        // formData.append('Description', info);
+        formData.append('Address', address);
+        formData.append('City', city);
+        formData.append('State', state);
+        formData.append('Pin code', pincode);
+        formData.append('Image', image);
+        formData.append('Type', type);
+        formData.append('Sqft', sqft);
+        formData.append('Rate', rate);
+        formData.append('Description', info);
 
-        // console.log("formdata real: ",formData.get('image'))
+        console.log("formdata real: ",formData.get('image'))
 
         setAddress('');
         setCity('');
@@ -77,7 +76,7 @@ export function Property() {
         setState('');
         setType('');
 
-        // console.log("Form data: ",await formData);
+        console.log("Form data: ", formData);
 
         const url = 'http://localhost:3333/realestate/property';
         const requestOptions = {
@@ -93,7 +92,7 @@ export function Property() {
                 const fetchdata = await res.json();
                 console.log("fetch", fetchdata);
                 if (res.status >= 200 && res.status <= 299) {
-                    alert('Property upload successfully...!');
+                    alert(fetchdata);
                 } else {
                     alert('Something went wrong...!')
                 }
@@ -133,11 +132,16 @@ export function Property() {
                         <label>Upload property photo</label>
                         <input className='form-control' multiple type='file' name='image' onChange={e => handleChange(e)} />
                     </div>
-                    <div className='row mx-2 my-3'>
-                        <select class="form-select" name='type' onChange={e => setType(e.target.value)}>
+                    <div className='row mx-1 my-3'>
+                        <select class="col form-select mx-2" name='type' onChange={e => setType(e.target.value)}>
                             <option selected value='select anyone'>Choose property for</option>
                             <option value="Rent" >Rent</option>
                             <option value="Sell" >Sell</option>
+                        </select>
+                        <select class="col form-select mx-2" name='type' onChange={e => setType(e.target.value)}>
+                            <option selected value='1 BHK'>1 BHK</option>
+                            <option value="2 BHK" > 2 BHK</option>
+                            <option value="3 BHK" >3 BHK</option>
                         </select>
                     </div>
                     <div className='row px-2'>

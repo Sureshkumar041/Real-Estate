@@ -22,6 +22,7 @@ var upload = multer({
             file.mimetype === "image/jpg" ||
             file.mimetype === "image/jpeg"
         ) {
+            console.log("Middleware: ",file);
             console.log("Valid image format");
             callback(null, true);
         } else {

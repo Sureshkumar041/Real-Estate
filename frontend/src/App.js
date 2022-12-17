@@ -26,6 +26,11 @@ function App() {
               <option value="Salem">Rent</option>
             </select>
           </div>
+          <div className='col-2'>
+            <Link to={'/signup'} >
+              <button className='btn bg-white rounded-pill'> Seller</button>
+            </Link>
+          </div>
           <div className='col start'>
             <div className='col d-flex flex-row-reverse py-3 px-4'>
               <Link to={'/signup'} className='d-flex flex-row-reverse text-decoration-none'>
