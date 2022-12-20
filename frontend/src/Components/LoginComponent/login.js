@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { withRouter } from '../NavigateComponent/router';
 import { Component } from 'react';
 
-
 class Login extends Component {
 
     constructor(props) {
@@ -59,8 +58,9 @@ class Login extends Component {
         await fetch(url, requestOptions)
             .then(async res => {
                 const fetchdata = await res.json();
-                console.log("fetch", fetchdata);
+                console.log("Token: ", fetchdata);
                 if (fetchdata.data.status >= 200 && fetchdata.data.status <= 299) {
+                    localStorage.setItem('token', JSON.stringify(fetchdata.data.token));
                     localStorage.setItem('userdetails', JSON.stringify(fetchdata.data.info));
                     this.setState({ details: fetchdata.data.info })
                     this.nxtPage(fetchdata);
@@ -70,7 +70,7 @@ class Login extends Component {
                 }
             })
             .catch(err => {
-                console.log(err.message);
+                console.log(err);
             })
     }
 

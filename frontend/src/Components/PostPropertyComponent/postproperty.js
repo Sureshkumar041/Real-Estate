@@ -134,7 +134,7 @@ export function Property() {
                     </div>
                     <div className='row mx-1 my-3'>
                         <select class="col form-select mx-2" name='type' onChange={e => setType(e.target.value)}>
-                            <option selected value='select anyone'>Choose property for</option>
+                            <option defaultValue={"select value"} value='select anyone'>Choose property for</option>
                             <option value="Rent" >Rent</option>
                             <option value="Sell" >Sell</option>
                         </select>

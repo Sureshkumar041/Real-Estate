@@ -7,21 +7,21 @@ function App() {
   return (
     <div>
       <header>
-        <div class="row header bg-info bg-opacity-75">
-          <div class="col-2 my-4 my-2 text-dark">
+        <div className="row header bg-info bg-opacity-75">
+          <div className="col-2 my-4 my-2 text-dark">
             <p className='mx-3 fs-4 fw-bold font-monospace'>Real Estate</p>
           </div>
-          <div class="col-2 location my-2">
-            <select class="form-select rounded-pill">
-              <option selected>Choose the location</option>
+          <div className="col-2 location my-2">
+            <select className="form-select rounded-pill">
+              <option defaultValue>Choose the location</option>
               <option value="Chennai">Chennai</option>
               <option value="Salem">Salem</option>
               <option value="Coimbatore">Coimbatore</option>
             </select>
           </div>
-          <div class="col-2 location my-2">
-            <select class="form-select rounded-pill">
-              <option selected>Property type</option>
+          <div className="col-2 location my-2">
+            <select className="form-select rounded-pill">
+              <option defaultValue>Property type</option>
               <option value="Chennai">Buy</option>
               <option value="Salem">Rent</option>
             </select>
