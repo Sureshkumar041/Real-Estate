@@ -3,7 +3,7 @@ const locationSchema = require('../model/locationSchema');
 const showLocation = async (req, res, next) => {
     try {
         const location = await locationSchema.find();
-        console.log("Location: ", location);
+        // console.log("Location: ", location);
         const data = {
             status: 200,
             location: location

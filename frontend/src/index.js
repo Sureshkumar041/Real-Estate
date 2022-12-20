@@ -8,10 +8,11 @@ import Login from './Components/LoginComponent/login';
 import SignUp from './Components/SignupComponent/signup';
 import Homepage from './Components/HomepageComponent/homepage'
 import AdminDashboard from './Components/AdminComponent/AdminDashboard/admindashboard';
+import AdminMaster from './Components/AdminComponent/AdminMasterComponent/adminmasterapi'
 import Seller from './Components/SellerComponent/seller';
 import PostProperty from './Components/PostPropertyComponent/postproperty';
 import BuyerComponent from './Components/BuyerComponent/buyer';
-import AdminMaster from './Components/AdminComponent/AdminMasterComponent/adminmasterapi';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

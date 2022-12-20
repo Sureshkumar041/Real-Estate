@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Dashboard } from "../AdminDashboard/admindashboard";
 import './adminmasterapi.css'
-import PostProperty from "../../PostPropertyComponent/postproperty";
 
 const AdminMaster = () => {
 
-    const [location, setLocation] = useState();
-    const [propertyFor, setPropertyFor] = useState();
+    const [location, setLocation] = useState(),
+        // [showlocation, setShowlocation] = useState(),
+        [propertyFor, setPropertyFor] = useState();
 
     const addLocation = async (e) => {
         e.preventDefault();
@@ -74,26 +74,67 @@ const AdminMaster = () => {
         }
     }
 
+    // useEffect((e) => {
+    //     const cityMaster = () => {
+    //         console.log("City master...!");
+    //         const url = 'http://localhost:3333/realestate/showlocation';
+
+    //         fetch(url)
+    //             .then(async (res) => {
+    //                 const fetchData = await res.json();
+    //                 return fetchData;
+    //             })
+    //             .then(fetchData => {
+    //                 setShowlocation(fetchData.data.location)
+    //                 console.log('fetchData.data.location: ', fetchData.data.location);
+    //             })
+    //             .catch((err => {
+    //                 console.log("Show location: ", err.message);
+    //             }))
+    //     }
+    //     cityMaster();
+    // }, []);
+
+    const showTable = () => {
+        console.log("Show table");
+    }
+
     const master = () => {
         return (
             <>
                 <div className="master px-5 py-4">
                     <div className="">
                         <h3>Add location</h3>
-                        <form className="form w-50">
-                            <div className="row">
-                                <input className="col form-control border-info" onChange={e => setLocation(e.target.value)} placeholder='Enter the location' required />
-                                <button className="col-3 btn btn-info mx-2" onClick={e => addLocation(e)}>Add</button>
+                        <div className="row">
+                            <div className="col-10">
+                                <form className="form" onSubmit={e => addLocation(e)}>
+                                    <div className="row">
+                                        <div className="col-7">
+                                            <input className="form-control border-info" onChange={e => setLocation(e.target.value)} placeholder='Enter the location' required />
+                                        </div>
+                                        <button className="col-2 btn btn-info mx-2" type="submit">Add</button>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
-                        <div className="my-4">
+                            <div className="col-2 table">
+                                <button className="btn btn-outline-info px-4" onClick={showTable}>Show location</button>
+                            </div>
+                        </div>
+                        <div className="row">
                             <h3>Add property for</h3>
-                            <form className="form w-50">
-                                <div className="row">
-                                    <input className="col form-control border-info"  name='propertyFor' onChange={e => setPropertyFor(e.target.value)} placeholder='Enter the location' required />
-                                    <button className="col-3 btn btn-info mx-2" onClick={e => addPropertyFor(e)}>Add</button>
-                                </div>
-                            </form>
+                            <div className="col-10">
+                                <form className="form" onSubmit={e => addPropertyFor(e)}>
+                                    <div className="row">
+                                        <div className="col-7">
+                                            <input className="form-control border-info" onChange={e => setPropertyFor(e.target.value)} placeholder='Enter the location' required />
+                                        </div>
+                                        <button className="col-2 btn btn-info mx-2" type="submit">Add</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div className="col table">
+                                <button className="btn btn-outline-info" onClick={showTable}>Show Property for</button>
+                            </div>
                         </div>
                     </div>
                 </div >
@@ -105,14 +146,13 @@ const AdminMaster = () => {
         <>
             <Dashboard />
             {master()}
-            <PostProperty location={location} />
         </>
     )
 }
 
-export const locationPass = (props) => {
-    // console.log("Props: ",props.location);
+// export const locationPass = (props) => {
+// console.log("Props: ",props.location);
 
-}
-locationPass();
+// }
+// locationPass();
 export default AdminMaster;

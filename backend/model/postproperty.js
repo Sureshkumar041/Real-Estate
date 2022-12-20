@@ -7,8 +7,8 @@ const schema = new Schema({
     state: { type: String },
     pincode: { type: Number },
     image: { type: String },
+    propertyFor: { type: String },
     type: { type: String },
-    bhk: { type: String },
     sqft: { type: Number },
     rate: { type: Number },
     info: { type: String, data: Buffer }
