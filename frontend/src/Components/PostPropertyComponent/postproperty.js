@@ -2,7 +2,7 @@ import './postproperty.css'
 import Seller from '../SellerComponent/seller';
 import { useState } from 'react';
 
-export function Property() {
+export function Property(props) {
 
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -13,68 +13,52 @@ export function Property() {
     const [sqft, setSqft] = useState('');
     const [rate, setRate] = useState('');
     const [info, setInfo] = useState('');
+    console.log("Fetchdata: ", props.location);
 
 
     const handleChange = async (e) => {
         if (e.target.files) {
-            console.log("Files here...!", e.target.files);
-            const files = [...e.target.files];
-            const allImage = [];
-            files.forEach(element => {
-                allImage.push(element);
-            });
-            console.log("All image: ", allImage);
-            setImage(allImage);
+            // console.log("Files here...!", e.target.files);
+            // const files = [...e.target.files];
+            // const allImage = [];
+            // files.forEach(element => {
+            // allImage.push(element);
+            // });
+            const arrFormat = Array.from(e.target.files);
+            console.log("All image: ",arrFormat[0].name);
+            setImage(e.target.files);
         }
     }
 
     const uploadPropery = (e) => {
         e.preventDefault();
         console.log("On Submit...!");
-        console.log('Image: ',image);
+        console.log('Image: ', image);
 
         const formData = new FormData(document.getElementById('form'));
-        formData['image'] = image;
-        
-        image.forEach(element => {
-            formData.append("image",element.name );
-            console.log('Element: ',element);
-        });
+        // formData['image'] = image;
 
-        // formData['image'] = [...image];
-        console.log("Image array: ",formData['image']);
-        const res = Object.fromEntries(formData);
-
-        // let item;
-        // for(item of formData){
-        //     console.log(item[0],item[1]);
-        // }
-
-        // formData.forEach(element => {
-        //     console.log(element);
+        // image.forEach(element => {
+        //     formData.append("image",element.name );
+        //     console.log('Element: ',element);
         // });
 
-        formData.append('Address', address);
-        formData.append('City', city);
-        formData.append('State', state);
-        formData.append('Pin code', pincode);
-        formData.append('Image', image);
-        formData.append('Type', type);
-        formData.append('Sqft', sqft);
-        formData.append('Rate', rate);
-        formData.append('Description', info);
+        console.log("Image array: ", formData['image']);
 
-        console.log("formdata real: ",formData.get('image'))
+        // formData.append('Address', address);
+        // formData.append('City', city);
+        // formData.append('State', state);
+        // formData.append('Pin code', pincode);
+        formData.append(JSON.parse(image), image);
+        // formData.append('Type', type);
+        // formData.append('Sqft', sqft);
+        // formData.append('Rate', rate);
+        // formData.append('Description', info);
 
-        setAddress('');
-        setCity('');
-        setImage('');
-        setInfo('');
-        setPincode('');
-        setRate('');
-        setSqft('');
-        setState('');
-        setType('');
+        const res = Object.fromEntries(formData);
+
+
+        console.log("formdata real: ", formData.get('image'))
 
         console.log("Form data: ", formData);
 
@@ -133,13 +117,13 @@ export function Property() {
                         <input className='form-control' multiple type='file' name='image' onChange={e => handleChange(e)} />
                     </div>
                     <div className='row mx-1 my-3'>
-                        <select class="col form-select mx-2" name='type' onChange={e => setType(e.target.value)}>
+                        <select className="col form-select mx-2" name='type' onChange={e => setType(e.target.value)}>
                             <option defaultValue={"select value"} value='select anyone'>Choose property for</option>
                             <option value="Rent" >Rent</option>
                             <option value="Sell" >Sell</option>
                         </select>
-                        <select class="col form-select mx-2" name='type' onChange={e => setType(e.target.value)}>
-                            <option selected value='1 BHK'>1 BHK</option>
+                        <select className="col form-select mx-2" name='type' onChange={e => setType(e.target.value)}>
+                            <option defaultValue value='1 BHK'>1 BHK</option>
                             <option value="2 BHK" > 2 BHK</option>
                             <option value="3 BHK" >3 BHK</option>
                         </select>
@@ -152,6 +136,7 @@ export function Property() {
                         <div className='col'>
                             <label>Rate(per sq.ft)</label>
                             <input className='form-control' name='rate' onChange={e => setRate(e.target.value)} />
+                            <h3>{props.location}</h3>
                         </div>
                     </div>
                     <div className='mx-2'>

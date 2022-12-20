@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Dashboard } from "../AdminDashboard/admindashboard";
 import './adminmasterapi.css'
+import PostProperty from "../../PostPropertyComponent/postproperty";
 
 const AdminMaster = () => {
 
     const [location, setLocation] = useState();
+    const [propertyFor, setPropertyFor] = useState();
 
     const addLocation = async (e) => {
         e.preventDefault();
@@ -12,7 +14,6 @@ const AdminMaster = () => {
         console.log("LOcation: ", location);
 
         try {
-
             const addLocation = {
                 location
             };
@@ -41,6 +42,38 @@ const AdminMaster = () => {
         }
     }
 
+    const addPropertyFor = (e) => {
+        e.preventDefault();
+
+        try {
+            const addPropertyFor = {
+                propertyFor: propertyFor
+            };
+            const url = 'http://localhost:3333/realestate/addPropertyFor';
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(addPropertyFor)
+            };
+
+            fetch(url, requestOptions)
+                .then(async (res) => {
+                    const fetchDataType = await res.json();
+                    console.log("Response: ", fetchDataType);
+                    if (fetchDataType.data.status >= 199 && fetchDataType.data.status < 300) {
+                        alert(fetchDataType.data.message)
+                    }
+                    else {
+                        alert(fetchDataType.data.message);
+                    }
+                });
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
     const master = () => {
         return (
             <>
@@ -53,6 +86,15 @@ const AdminMaster = () => {
                                 <button className="col-3 btn btn-info mx-2" onClick={e => addLocation(e)}>Add</button>
                             </div>
                         </form>
+                        <div className="my-4">
+                            <h3>Add property for</h3>
+                            <form className="form w-50">
+                                <div className="row">
+                                    <input className="col form-control border-info"  name='propertyFor' onChange={e => setPropertyFor(e.target.value)} placeholder='Enter the location' required />
+                                    <button className="col-3 btn btn-info mx-2" onClick={e => addPropertyFor(e)}>Add</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div >
             </>
@@ -63,8 +105,14 @@ const AdminMaster = () => {
         <>
             <Dashboard />
             {master()}
+            <PostProperty location={location} />
         </>
     )
 }
 
+export const locationPass = (props) => {
+    // console.log("Props: ",props.location);
+
+}
+locationPass();
 export default AdminMaster;
