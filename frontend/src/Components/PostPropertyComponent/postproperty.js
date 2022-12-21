@@ -19,13 +19,12 @@ export function PostProperty() {
 
 
     const handleChange = async (e) => {
-        // setImage(e.target.files[0]);
-        const arrFile = [];
-        [...e.target.files].forEach((element) => {
-            arrFile.push({element})
+        const files = e.target.files;
+        var multipleFiles = [];
+        [...files].forEach(element => {
+            multipleFiles.push(element);
         });
-        console.log("Array of : ", arrFile);
-        setImage(arrFile);
+        setImage(multipleFiles);
     }
 
     const createPro = (product) => {
@@ -41,28 +40,44 @@ export function PostProperty() {
             })
             .catch((err) => console.log(err));
     }
+
     const onSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
+        let formData = new FormData();
         formData.append('address', address);
         formData.append('city', city);
         formData.append('state', state);
         formData.append('pincode', pincode);
-        formData.append('image', image);
+        // formData.append('image', image);
+        image.forEach(element => {
+            formData.append('image', element);
+        });
         formData.append('propertyFor', propertyFor)
         formData.append('type', type);
         formData.append('sqft', sqft);
         formData.append('rate', rate);
         formData.append('info', info);
+        setCity('');
+        setAddress('');
+        setImage('');
+        setInfo('');
+        setType('');
+        setRate('');
+        setSqft('');
+        setPincode('');
+        setpropertyFor('');
+        setState('');
+
         await createPro(formData).then((res) => {
             console.log('res', res)
+            alert(res.message);
+        }).catch((res)=>{
+            alert(res.message)
         })
     }
 
     const cityMaster = () => {
-        console.log("City master...!");
         const url = 'http://localhost:3333/realestate/showlocation';
-
         fetch(url)
             .then(async (res) => {
                 const fetchData = await res.json();
@@ -70,7 +85,6 @@ export function PostProperty() {
             })
             .then(fetchData => {
                 setShowlocation(fetchData.data.location)
-                console.log('fetchData.data.location: ', fetchData.data.location);
             })
             .catch((err => {
                 console.log("Show location: ", err.message);
@@ -81,7 +95,7 @@ export function PostProperty() {
         cityMaster();
     }, []);
 
-
+    // Property Upload form ...!
     const propertyForm = () => {
         return (
             <>
@@ -91,26 +105,27 @@ export function PostProperty() {
                             <h2>Post Property</h2>
                         </div>
                         <div className='row mx-2 my-2'>
-                            <select className="form-select" onChange={e => setCity(e.target.value)} name='city' >
+                            <select className="form-select" onChange={e => setCity(e.target.value)} name='city' required>
+                                <option defaultValue>Select the city</option>
                                 {
                                     showlocation.map((item) => (
-                                        <option value={item.location} onClick={e => handleChange(e)} >{item.location}</option>
+                                        <option>{item.location}</option>
                                     ))
                                 }
                             </select>
                         </div>
                         <div className='row mx-2 '>
                             <label>Address line</label>
-                            <input className='form-control' name='address' onChange={e => setAddress(e.target.value)} />
+                            <input className='form-control' name='address' onChange={e => setAddress(e.target.value)} required />
                         </div>
                         <div className='row px-2'>
                             <div className='col'>
                                 <label>State</label>
-                                <input className='form-control' name='state' onChange={e => setState(e.target.value)} />
+                                <input className='form-control' name='state' onChange={e => setState(e.target.value)} required />
                             </div>
                             <div className='col'>
                                 <label>Pin code</label>
-                                <input className='form-control' name='pincode' onChange={e => setPincode(e.target.value)} />
+                                <input className='form-control' type='number' name='pincode' onChange={e => setPincode(e.target.value)} required />
                             </div>
                         </div>
                         <div className='row mx-2'>
@@ -118,12 +133,12 @@ export function PostProperty() {
                             <input className='form-control' multiple type='file' name='image' onChange={e => handleChange(e)} />
                         </div>
                         <div className='row mx-1 my-3'>
-                            <select className="col form-select mx-2" name='propertyFor' onChange={e => setpropertyFor(e.target.value)}>
+                            <select className="col form-select mx-2" name='propertyFor' onChange={e => setpropertyFor(e.target.value)} required>
                                 <option defaultValue={"select value"} value='select anyone'>Choose property for</option>
                                 <option value="Rent" >Rent</option>
                                 <option value="Sell" >Sell</option>
                             </select>
-                            <select className="col form-select mx-2" name='type' onChange={e => setType(e.target.value)}>
+                            <select className="col form-select mx-2" name='type' onChange={e => setType(e.target.value)} required>
                                 <option defaultValue value='1 BHK'>1 BHK</option>
                                 <option value="2 BHK" > 2 BHK</option>
                                 <option value="3 BHK" >3 BHK</option>
@@ -132,16 +147,16 @@ export function PostProperty() {
                         <div className='row px-2'>
                             <div className='col'>
                                 <label>Area (sq.ft)</label>
-                                <input className='form-control' name='sqft' onChange={e => setSqft(e.target.value)} />
+                                <input className='form-control' name='sqft' onChange={e => setSqft(e.target.value)} required />
                             </div>
                             <div className='col'>
                                 <label>Rate(per sq.ft)</label>
-                                <input className='form-control' name='rate' onChange={e => setRate(e.target.value)} />
+                                <input className='form-control' name='rate' onChange={e => setRate(e.target.value)} required />
                             </div>
                         </div>
                         <div className='mx-2'>
                             <label>Description</label>
-                            <textarea className='form-control' type='message' name='info' onChange={e => setInfo(e)} />
+                            <textarea className='form-control' type='message' name='info' onChange={e => setInfo(e.target.value)} required />
                         </div>
                         <div className='row my-3 mx-2'>
                             <button className='col btn bg-secondary text-light  mx-4'>Cancel</button>

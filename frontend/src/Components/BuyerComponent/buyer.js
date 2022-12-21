@@ -5,7 +5,9 @@ import './buyer.css'
 function BuyerComponent() {
 
     const [showlocation, setShowlocation] = useState([]);
+    // [showCart, setShowCart] = useState([]);
     // const [propertyFor, setPropertyFor] = useState([]);
+    const API = 'http://localhost:3333/realestate';
 
     const handleChange = (e) => {
         console.log("Handle change");
@@ -46,52 +48,44 @@ function BuyerComponent() {
                             </div>
                         </div>
                     </header>
-                    <div className="row my-5 mx-5">
-                        <div className="col-6 ">
-                            <table className="table table-hover table-bordered bg-warning border-primary bg-opacity-75 text-center">
-                                <thead>
-                                    <tr>
-                                        <th>location</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {showlocation.map((item) => (
-                                        <tr>
-                                            <td>{item.location}</td>
-                                            <td>
-                                                <button className="btn bg-danger text-white">Delete</button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </>
         )
     }
 
-    useEffect((e) => {
-        const cityMaster = () => {
-            console.log("City master...!");
-            const url = 'http://localhost:3333/realestate/showlocation';
+    const cityMaster = () => {
+        console.log("City master...!");
+        const url = 'http://localhost:3333/realestate/showlocation';
 
-            fetch(url)
-                .then(async (res) => {
-                    const fetchData = await res.json();
-                    return fetchData;
-                })
-                .then(fetchData => {
-                    setShowlocation(fetchData.data.location)
-                    console.log('fetchData.data.location: ', fetchData.data.location);
-                })
-                .catch((err => {
-                    console.log("Show location: ", err.message);
-                }))
-        }
+        fetch(url)
+            .then(async (res) => {
+                const fetchData = await res.json();
+                return fetchData;
+            })
+            .then(fetchData => {
+                setShowlocation(fetchData.data.location)
+                console.log('fetchData.data.location: ', fetchData.data.location);
+            })
+            .catch((err => {
+                console.log("Show location: ", err.message);
+            }))
+    }
+
+    const cartImage = (API) => {
+        fetch('http://localhost:3333/realestate/cartimage')
+            .then(async (res) => {
+                const cart = await res.json();
+                return cart;
+            })
+            .then((cart) => {
+                console.log("Data: ", cart.data);
+                // setShowCart(cart);
+            })
+    }
+
+    useEffect((e) => {
         cityMaster();
+        cartImage(API);
     }, []);
 
     return (
