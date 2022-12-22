@@ -4,9 +4,8 @@ import './buyer.css'
 
 function BuyerComponent() {
 
-    const [showlocation, setShowlocation] = useState([]);
-    // [showCart, setShowCart] = useState([]);
-    // const [propertyFor, setPropertyFor] = useState([]);
+    const [showlocation, setShowlocation] = useState([]),
+        [showCart, setShowCart] = useState([]);
     const API = 'http://localhost:3333/realestate';
 
     const handleChange = (e) => {
@@ -49,6 +48,14 @@ function BuyerComponent() {
                         </div>
                     </header>
                 </div>
+                <div className="bg-warning my-5 imageContent">
+                    <p>Property</p>
+                    {
+                        showCart.map((item)=>(
+                            <p>Property Inforamtion on the way</p>
+                        ))
+                    }
+                </div>
             </>
         )
     }
@@ -78,8 +85,11 @@ function BuyerComponent() {
                 return cart;
             })
             .then((cart) => {
-                console.log("Data: ", cart.data);
-                // setShowCart(cart);
+                console.log("Image data : ", cart.data);
+                setShowCart(cart);
+            })
+            .catch((err)=>{
+                console.log("Cart image: ",err.message);
             })
     }
 

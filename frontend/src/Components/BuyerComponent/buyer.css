@@ -1,3 +1,7 @@
 #usericon{
     cursor: pointer;
 }
+
+.imageContent{
+    height: 20vh;
+}

@@ -7,7 +7,7 @@ const cartImage = async (req, res, next) => {
         const data= {
             data : uploadingData
         };
-        return res.status(200).json({ data: data });
+        return res.status(200).json({ data: uploadingData });
     } catch (error) {
         res.status(400).json({ data: error.message });
     }

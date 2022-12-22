@@ -9,6 +9,7 @@ const connect = () => {
     mongoose.connect(mongoUrl)
         .then(() => console.log("Database connected successfully ...!"))
         .catch((err) => {
+            console.log("Error: ",err.message)
             console.log("Database enable to connect...!");
         })
 };

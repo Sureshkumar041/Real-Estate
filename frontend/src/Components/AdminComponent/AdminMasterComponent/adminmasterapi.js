@@ -6,6 +6,7 @@ const AdminMaster = () => {
 
     const [location, setLocation] = useState(''),
         [showlocation, setShowlocation] = useState([]),
+        [locationVisibility, setLocationVisibility] = useState(true),
         [propertyFor, setPropertyFor] = useState('');
     const API = 'http://localhost:3333/realestate';
 
@@ -122,8 +123,56 @@ const AdminMaster = () => {
     //     cityMaster();
     // }, []);
 
+    const showPlace = () => {
+        console.log("City master...!");
+        // const url = '${API}/showlocation';
+
+        fetch('http://localhost/realestate/showlocation')
+            .then(async (res) => {
+                const fetchData = await res.json();
+                return fetchData;
+            })
+            .then(fetchData => {
+                setShowlocation(fetchData.data.location)
+                console.log('fetchData.data.location: ', fetchData.data.location);
+            })
+            .catch((err => {
+                console.log("Show location: ", err.message);
+            }))
+    }
+
+    useEffect((e) => {
+        showPlace();
+    }, []);
+
     const showTable = () => {
         console.log("Show table");
+        return (
+            <><div className="row my-5 mx-5">
+                <div className="col-6 my-5 locations">
+                    <table className="table table-hover table-bordered bg-warning border-white bg-opacity-75 text-center">
+                        <thead>
+                            <tr>
+                                <th>location</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {showlocation.map((item) => (
+                                <tr>
+                                    <td>{item.location}</td>
+                                    <td>
+                                        <button className="btn bg-danger text-white">Delete</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            </>
+        )
     }
 
     const master = () => {
@@ -143,33 +192,14 @@ const AdminMaster = () => {
                                     </div>
                                 </form>
                             </div>
-                            <div className="col-2 table">
-                                <button className="btn btn-outline-info px-4 id" onClick={showTable}>Show location</button>
+                            <div className="col-3 tables">
+                                <button className="btn btn-outline-info px-4 id" onClick={e => setLocationVisibility(!locationVisibility)}>
+                                    {locationVisibility === true ? 'Hide' : 'Show location table'}
+                                </button>
                             </div>
                         </div>
-                        {/* <div className="row my-5 mx-5">
-                            <div className="col-6 my-5">
-                                <table className="table table-hover table-bordered bg-warning border-primary bg-opacity-75 text-center">
-                                    <thead>
-                                        <tr>
-                                            <th>location</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {showlocation.map((item) => (
-                                            <tr>
-                                                <td>{item.location}</td>
-                                                <td>
-                                                    <button className="btn bg-danger text-white">Delete</button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div> */}
-                        <div className="row">
+                        {locationVisibility && showTable()}
+                        <div className="row ">
                             <h3>Add property for</h3>
                             <div className="col-10">
                                 <form className="form" onSubmit={e => onSubmit(e)}>
@@ -181,7 +211,7 @@ const AdminMaster = () => {
                                     </div>
                                 </form>
                             </div>
-                            <div className="col table">
+                            <div className="col-3 tables">
                                 <button className="btn btn-outline-info" onClick={showTable}>Show Property for</button>
                             </div>
                         </div>
@@ -218,35 +248,6 @@ const AdminMaster = () => {
         cityMaster();
     }, []);
 
-    // const locationTable = (props) => {
-    //     return (
-    //         <>
-    //             <div className="row my-5 mx-5">
-    //                 <div className="col-6 my-5">
-    //                     <table className="table table-hover table-bordered bg-warning border-primary bg-opacity-75 text-center">
-    //                         <thead>
-    //                             <tr>
-    //                                 <th>location</th>
-    //                                 <th>Action</th>
-    //                             </tr>
-    //                         </thead>
-    //                         <tbody>
-    //                             {props.showlocation.map((item) => (
-    //                                 <tr>
-    //                                     <td>{item.location}</td>
-    //                                     <td>
-    //                                         <button className="btn bg-danger text-white">Delete</button>
-    //                                     </td>
-    //                                 </tr>
-    //                             ))}
-    //                         </tbody>
-    //                     </table>
-    //                 </div>
-    //             </div>
-    //         </>
-    //     )
-    // }
-
     return (
         <>
             <Dashboard />
@@ -255,9 +256,4 @@ const AdminMaster = () => {
     )
 }
 
-// export const locationPass = (props) => {
-// console.log("Props: ",props.location);
-
-// }
-// locationPass();
 export default AdminMaster;
