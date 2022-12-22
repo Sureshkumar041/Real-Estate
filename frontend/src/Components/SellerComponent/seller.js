@@ -9,7 +9,7 @@ function Seller() {
                 <div className="col-2 bg-info text-center">
                     <h3 className='my-4'>Seller Dashboard </h3>
                     <div className="text-center">
-                        <Link to={'/postproperty'} className='row text-decoration-none text-center text-white'>
+                        <Link to={'/realestate/postproperty'} className='row text-decoration-none text-center text-white'>
                             <p className='n'>Post Property</p>
                         </Link>
                         <Link to={'/manageproperty'} className='row text-decoration-none text-center text-white'>

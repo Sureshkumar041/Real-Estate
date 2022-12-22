@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import App from '../../App';
 import './signup.css'
 import { withRouter } from '../NavigateComponent/router';
+import BuyerComponent from '../BuyerComponent/buyer';
 
 class SignUp extends Component {
 
@@ -79,7 +79,7 @@ class SignUp extends Component {
     render() {
         return (
             <>
-                <App />
+                <BuyerComponent />
                 <div className='register my-5'>
                     <form className='position-absolute end-0 mx-4' onSubmit={e => this.Submit(e)}>
                         <div className='mx-5' id='radio'>
@@ -118,7 +118,7 @@ class SignUp extends Component {
                             <button className='btn bg-info bg-opacity-75 my-2' type='Submit'>Submit</button>
                             {/* <button className='btn btn-outline-primary rounded-4'>Login</button> */}
                         </div>
-                        <Link to={'/login'} className='row text-decoration-none px-3'>
+                        <Link to={'/realestate/login'} className='row text-decoration-none px-3'>
                             <button className='btn btn-outline-info'>Login</button>
                         </Link>
                     </form>

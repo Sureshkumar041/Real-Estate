@@ -3,8 +3,8 @@ const propertySchema = require('../../model/postproperty');
 
 const imageStore = async (req, res) => {
     try {
-        console.log('req.body', req.body)
         const url = req.protocol + "://" + req.get("host");
+        const imgpath = url + "/public/" + req.files;
         const state = req.body.state,
             address = req.body.address,
             rate = req.body.rate,
@@ -17,7 +17,7 @@ const imageStore = async (req, res) => {
             pincode = req.body.pincode;
         let image = [];
         [...imageArray].forEach(element => {
-            image.push(element.originalname);
+            image.push(url + "/uploads/" + element.filename);
         });
         const data = {
             city,

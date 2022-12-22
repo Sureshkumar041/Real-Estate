@@ -13,20 +13,19 @@ import Seller from './Components/SellerComponent/seller';
 import PostProperty from './Components/PostPropertyComponent/postproperty';
 import BuyerComponent from './Components/BuyerComponent/buyer';
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Routes>
       <Route path='/' element={<App />} />
-      <Route path='/signup' element={<SignUp />} />
-      <Route path='/login' element={<Login />} />
+      <Route path='/realestate/signup' element={<SignUp />} />
+      <Route path='/realestate/login' element={<Login />} />
       <Route path='/home' element={<Homepage />} />
-      <Route path='/admin' element={<AdminDashboard />} />
+      <Route path='/realestate/admin' element={<AdminDashboard />} />
       <Route path='/master' element={<AdminMaster />} />
-      <Route path='/seller' element={<Seller />} />
-      <Route path='/postproperty' element={<PostProperty />} />
-      <Route path='/buyer' element={<BuyerComponent />} />
+      <Route path='/realestate/seller' element={<Seller />} />
+      <Route path='/realestate/postproperty' element={<PostProperty />} />
+      <Route path='/realestate' element={<BuyerComponent />} />
       {/* <Route path='*' element={<p className='text-center my-5'>Page Not Found : 404 Error</p>} /> */}
     </Routes>
   </BrowserRouter>

@@ -1,0 +1,13 @@
+.cart {
+    margin-top: 10vh;
+    border: solid 1px black;
+}
+
+/* .carts {
+    max-width: 30%;
+} */
+
+.image {
+    max-height: 33vh;
+    max-width: 100%;
+}

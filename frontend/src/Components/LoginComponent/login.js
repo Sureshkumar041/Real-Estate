@@ -1,9 +1,10 @@
 import React from 'react';
 import './login.css';
-import App from '../../App';
+
 import { Link } from 'react-router-dom';
 import { withRouter } from '../NavigateComponent/router';
 import { Component } from 'react';
+import BuyerComponent from '../BuyerComponent/buyer';
 
 class Login extends Component {
 
@@ -27,11 +28,11 @@ class Login extends Component {
         console.log("Role: ", fetchdata.data.info.role);
         if (fetchdata.data.info.id !== '') {
             if (fetchdata.data.info.role === 'Seller') {
-                this.props.navigate('/seller');
+                this.props.navigate('/realestate/seller');
             } else if (fetchdata.data.info.role === 'Buyer') {
-                this.props.navigate('/buyer');
+                this.props.navigate('/realestate');
             } else if (fetchdata.data.info.role === 'Admin') {
-                this.props.navigate('/admin');
+                this.props.navigate('/realestate/admin');
             }
         }
     }
@@ -74,10 +75,9 @@ class Login extends Component {
             })
     }
 
-    render() {
+    authentication = () => {
         return (
-            <>
-                <App />
+            <React.Fragment>
                 <div className='login my-5 mx-4 w-25'>
                     <form onSubmit={e => this.Signin(e)} className=''>
                         <div className='my-2'>
@@ -93,11 +93,20 @@ class Login extends Component {
                         <div className='row my-2 px-3'>
                             <button className='btn bg-info bg-opactity-75 '>Login</button>
                         </div>
-                        <Link to={'/signup'} className='row text-decoration-none px-3'>
+                        <Link to={'/realestate/signup'} className='row text-decoration-none px-3'>
                             <button className='btn btn-outline-info'>SignUp</button>
                         </Link>
                     </form>
                 </div >
+            </React.Fragment>
+        )
+    }
+
+    render() {
+        return (
+            <>
+                <BuyerComponent />
+                {this.authentication()}
             </>
         )
     }

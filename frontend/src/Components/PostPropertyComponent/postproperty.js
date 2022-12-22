@@ -1,6 +1,6 @@
 import './postproperty.css'
 import Seller from '../SellerComponent/seller';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export function PostProperty() {
     const API = 'http://localhost:3333'
@@ -71,7 +71,7 @@ export function PostProperty() {
         await createPro(formData).then((res) => {
             console.log('res', res)
             alert(res.message);
-        }).catch((res)=>{
+        }).catch((res) => {
             alert(res.message)
         })
     }
@@ -109,7 +109,9 @@ export function PostProperty() {
                                 <option defaultValue>Select the city</option>
                                 {
                                     showlocation.map((item) => (
-                                        <option>{item.location}</option>
+                                        <React.Fragment key={item.no} >
+                                            <option>{item.location}</option>
+                                        </React.Fragment>
                                     ))
                                 }
                             </select>

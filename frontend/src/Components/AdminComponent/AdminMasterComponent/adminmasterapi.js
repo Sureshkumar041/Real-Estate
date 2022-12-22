@@ -6,7 +6,7 @@ const AdminMaster = () => {
 
     const [location, setLocation] = useState(''),
         [showlocation, setShowlocation] = useState([]),
-        [locationVisibility, setLocationVisibility] = useState(true),
+        [locationVisibility, setLocationVisibility] = useState(false),
         [propertyFor, setPropertyFor] = useState('');
     const API = 'http://localhost:3333/realestate';
 
@@ -70,6 +70,7 @@ const AdminMaster = () => {
         })
     }
 
+
     // const addPropertyFor = (e) => {
     //     e.preventDefault();
 
@@ -101,28 +102,9 @@ const AdminMaster = () => {
     //         console.log(err.message);
     //     }
     // }
-
-    // useEffect((e) => {
-    //     const cityMaster = () => {
-    //         console.log("City master...!");
-    //         const url = 'http://localhost:3333/realestate/showlocation';
-
-    //         fetch(url)
-    //             .then(async (res) => {
-    //                 const fetchData = await res.json();
-    //                 return fetchData;
-    //             })
-    //             .then(fetchData => {
-    //                 setShowlocation(fetchData.data.location)
-    //                 console.log('fetchData.data.location: ', fetchData.data.location);
-    //             })
-    //             .catch((err => {
-    //                 console.log("Show location: ", err.message);
-    //             }))
-    //     }
-    //     cityMaster();
-    // }, []);
-
+    
+    //
+    
     const showPlace = () => {
         console.log("City master...!");
         // const url = '${API}/showlocation';
@@ -141,47 +123,47 @@ const AdminMaster = () => {
             }))
     }
 
-    useEffect((e) => {
-        showPlace();
-    }, []);
-
+    // Location Table
     const showTable = () => {
         console.log("Show table");
         return (
-            <><div className="row my-5 mx-5">
-                <div className="col-6 my-5 locations">
-                    <table className="table table-hover table-bordered bg-warning border-white bg-opacity-75 text-center">
-                        <thead>
-                            <tr>
-                                <th>location</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {showlocation.map((item) => (
+            <>
+                <div className="row my-5 mx-5 tableDiv">
+                    <div className="col locations border-bottom border-dark">
+                        <table className="table table-hover table-bordered border-dark bg-opacity-75 text-center">
+                            <thead>
                                 <tr>
-                                    <td>{item.location}</td>
-                                    <td>
-                                        <button className="btn bg-danger text-white">Delete</button>
-                                    </td>
+                                    <th>SI.No</th>
+                                    <th>location</th>
+                                    <th>Action</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {showlocation.map((item) => (
+                                    <tr>
+                                        <td>{item.no} </td>
+                                        <td>{item.location}</td>
+                                        <td>
+                                            <button className="btn bg-danger text-white">Delete</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-
             </>
         )
     }
 
+    // Master
     const master = () => {
         return (
             <>
                 <div className="master px-5 py-4">
                     <div className="">
                         <h3>Add location</h3>
-                        <div className="row">
+                        <div className="row addLocation">
                             <div className="col-10">
                                 <form className="form" onSubmit={e => addLocation(e)}>
                                     <div className="row">
@@ -221,6 +203,7 @@ const AdminMaster = () => {
         )
     }
 
+    // Master API for location
     const cityMaster = () => {
         console.log("City master...!");
         const url = 'http://localhost:3333/realestate/showlocation';
@@ -237,15 +220,11 @@ const AdminMaster = () => {
             .catch((err => {
                 console.log("Show location: ", err.message);
             }))
-        // return (
-        //     <>
-        //         <locationTable data={showlocation} />
-        //     </>
-        // )
     }
 
     useEffect((e) => {
         cityMaster();
+        showPlace();
     }, []);
 
     return (
