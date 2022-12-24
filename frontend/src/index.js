@@ -12,6 +12,8 @@ import AdminMaster from './Components/AdminComponent/AdminMasterComponent/adminm
 import Seller from './Components/SellerComponent/seller';
 import PostProperty from './Components/PostPropertyComponent/postproperty';
 import BuyerComponent from './Components/BuyerComponent/buyer';
+import ImgMediaCard from './Components/materialComponent/material';
+import AdminSellerMgmt from './Components/AdminComponent/AdminMgmtSellerComponent/adminSellerMgmt';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,7 +28,8 @@ root.render(
       <Route path='/realestate/seller' element={<Seller />} />
       <Route path='/realestate/postproperty' element={<PostProperty />} />
       <Route path='/realestate' element={<BuyerComponent />} />
-      {/* <Route path='*' element={<p className='text-center my-5'>Page Not Found : 404 Error</p>} /> */}
+      <Route path='/realestate' element={<ImgMediaCard />} />
+      <Route path='realestate/admin/sellermgmt' element={<AdminSellerMgmt />} />
     </Routes>
   </BrowserRouter>
 );

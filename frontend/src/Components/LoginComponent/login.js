@@ -4,7 +4,6 @@ import './login.css';
 import { Link } from 'react-router-dom';
 import { withRouter } from '../NavigateComponent/router';
 import { Component } from 'react';
-import BuyerComponent from '../BuyerComponent/buyer';
 
 class Login extends Component {
 
@@ -78,8 +77,11 @@ class Login extends Component {
     authentication = () => {
         return (
             <React.Fragment>
-                <div className='login my-5 mx-4 w-25'>
-                    <form onSubmit={e => this.Signin(e)} className=''>
+                <div className='login'>
+                    <form onSubmit={e => this.Signin(e)} className='forms'>
+                        <div className='text-center'>
+                            <h3>Login</h3>
+                        </div>
                         <div className='my-2'>
                             <label className='form-comtrol'>Email address</label>
                             <input className='form-control border-0 bg-secondary bg-opacity-25' onChange={e => this.HandleChange(e)} id='userName'
@@ -105,7 +107,6 @@ class Login extends Component {
     render() {
         return (
             <>
-                <BuyerComponent />
                 {this.authentication()}
             </>
         )

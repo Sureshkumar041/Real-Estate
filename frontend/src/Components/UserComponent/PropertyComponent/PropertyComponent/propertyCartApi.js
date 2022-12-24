@@ -1,36 +1,15 @@
 import React, { useEffect, useState } from "react";
 import './propertyCartApi.css';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 const PropertyCart = () => {
 
     const [showCart, setShowCart] = useState([]);
-
-    // Show Property Cart
-    const propertyCart = () => {
-        return (
-            <>
-                <div className="row">
-                    {
-                        showCart.map((item, index) => (
-                            <div key={index} className='carts'>
-                                <div className="cart col-3">
-                                    <h3>{item.city} </h3>
-                                    {
-                                        item.image.map((img, index) => (
-                                            <div key={index}>
-                                                <img src={img} alt={item} className='image' ></img>
-                                                <button className="btn bg-info w-50 my-3">Per sqft : {item.rate} </button>
-                                            </div>
-                                        ))
-                                    }
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
-            </>
-        )
-    }
 
     const cartImage = (API) => {
         fetch('http://localhost:3333/realestate/cartimage')
@@ -47,13 +26,61 @@ const PropertyCart = () => {
             })
     }
 
+    // Image show
+    const imageMap = (item, index) => {
+        return (
+            <>
+                <div key={index}>
+                    <CardMedia
+                        component="img"
+                        alt="green iguana"
+                        height="140"
+                        image={item}
+                    />
+                </div>
+            </>
+        )
+    }
+
+    const DynamicCart = () => {
+        return (
+            <div className="cartD">
+                {
+                    showCart.map((item, index) => (
+                        <div key={index}>
+                            <Card sx={{ maxWidth: 345 }}>
+                                {
+                                    item.image.map((item, index) => (
+                                        index === 0 ? imageMap(item, index) : null
+                                    ))
+                                }
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {item.city}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {item.info}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button size="small" variant="contained" color="success" >{item.propertyFor} </Button>
+                                    <Button size="small" variant="contained" color="primary">{item.type} </Button>
+                                </CardActions>
+                            </Card>
+                        </div>
+                    ))
+                }
+            </div >
+        );
+    }
+
     useEffect((e) => {
         cartImage();
     }, [])
 
     return (
         <React.Fragment>
-            {propertyCart()}
+            {DynamicCart()}
         </React.Fragment>
     )
 }

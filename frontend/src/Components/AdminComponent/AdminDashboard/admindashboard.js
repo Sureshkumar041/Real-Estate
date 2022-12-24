@@ -11,7 +11,7 @@ export function Dashboard() {
                         <Link to={'/master'} className='row text-decoration-none text-center text-white'>
                             <p className='n'>Master</p>
                         </Link>
-                        <Link to={'/manageseller'} className='row text-decoration-none text-center text-white'>
+                        <Link to={'/realestate/admin/sellermgmt'} className='row text-decoration-none text-center text-white'>
                             <p className='n'>Manage Seller</p>
                         </Link>
                         <Link to={'/managebuyer'} className='row text-decoration-none text-center text-white'>

@@ -3,11 +3,25 @@
     border: solid 1px black;
 }
 
-/* .carts {
-    max-width: 30%;
-} */
-
 .image {
     max-height: 33vh;
     max-width: 100%;
+}
+
+.cartShow {
+    /* max-width: 33%; */
+    margin-top: 25px;
+}
+
+.image {
+    max-width: 33%;
+    max-height: fit-content;
+}
+
+img {
+    max-width: 100%;
+}
+
+.cartD {
+    margin-top: 6vh;
 }
