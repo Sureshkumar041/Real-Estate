@@ -7,7 +7,7 @@ const login = async (req, res, next) => {
     const { userName, password } = req.body;
     let data = {}, status, msg, info;
 
-    console.log("User seller in : ", await sellerSchema.findOne({ userName: userName }));
+    console.log("User login : ",req.body)
     const validateUser = (await sellerSchema.findOne({ userName: userName }) || await sellerSchema.findOne({ email: userName })) || (await buyerSchema.findOne({ userName: userName }) ||
         await buyerSchema.findOne({ email: userName }));
 
@@ -25,9 +25,9 @@ const login = async (req, res, next) => {
 
         var decrypt = crypto.AES.decrypt(validateUser.password, 'abcdefg').toString(crypto.enc.Utf8);
         console.log("User password: ", decrypt);
-
-        const token = jwt.sign({ data: "suresh" }, 'secret-key', { expiresIn: '1h' });
         if (password === decrypt) {
+            const payload = { 'id': validateUser._id };
+            const token = jwt.sign(payload, 'secret-key', { expiresIn: '1h' });
             data = {
                 status: 200,
                 msg: 'Login successfully',
@@ -39,11 +39,7 @@ const login = async (req, res, next) => {
                 },
                 token: token
             }
-
-            // res.send({ data: data });
-
-            res.send({ data: data });
-
+            res.status(200).send({ data: data });
             return true;
         } else {
             data = {
@@ -54,7 +50,6 @@ const login = async (req, res, next) => {
             res.send({ data: data });
             return true;
         }
-
     } else {
         data = {
             status: 400,

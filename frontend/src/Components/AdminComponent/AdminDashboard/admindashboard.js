@@ -4,8 +4,8 @@ import './admindashboard.css';
 export function Dashboard() {
     return (
         <>
-            <div className="row admindash">
-                <div className="col-2 bg-info text-center">
+            <div className="row admindash ">
+                <div className="col-2 bg-info text-center  menu">
                     <h3 className='my-4'>Admin Dashboard </h3>
                     <div className="text-center">
                         <Link to={'/master'} className='row text-decoration-none text-center text-white'>

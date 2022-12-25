@@ -16,7 +16,8 @@ export function PostProperty () {
     [info, setInfo] = useState(''),
     [propertyFor, setpropertyFor] = useState(''),
     [showlocation, setShowlocation] = useState([]),
-    [showProperty, setShowProperty] = useState([])
+    [showProperty, setShowProperty] = useState([]),
+    [showPropertyType,setShowPropertyType] = useState([]);
 
   const handleChange = async e => {
     const files = e.target.files
@@ -27,11 +28,16 @@ export function PostProperty () {
     setImage(multipleFiles)
   }
 
+  // const token =JSON.parse(localStorage.getItem('token'));
+  //   console.log('Token: ',token);
   const createPro = product => {
+    const token =JSON.parse(localStorage.getItem('token'));
+    console.log('Token: ',token);
     return fetch(`${API}/property`, {
       method: 'post',
       headers: {
-        Accept: 'application/json'
+        Accept: 'application/json',
+        Authorization: token
       },
       body: product
     })
@@ -67,7 +73,6 @@ export function PostProperty () {
     setPincode('')
     setpropertyFor('')
     setState('')
-
     await createPro(formData)
       .then(res => {
         console.log('res', res)
@@ -111,9 +116,25 @@ export function PostProperty () {
       })
   }
 
+  const getPropertyType = async (path) => {
+    await fetch(`${API}/${path}`)
+      .then(async res => {
+        const fetchData = await res.json();
+        return fetchData;
+      })
+      .then(fetchData => {
+        console.log('Get property type: ',fetchData)
+        setShowPropertyType(fetchData.data.data);
+      })
+      .catch(err => {
+        console.log("Get property type: ", err);
+      })
+  }
+
   useEffect(e => {
     cityMaster()
     getProperty()
+    getPropertyType('showpropertytype')
   }, [])
 
   // Property Upload form ...!
@@ -208,10 +229,12 @@ export function PostProperty () {
                 onChange={e => setType(e.target.value)}
                 required
               >
-                <option value='0'>Property type</option>
-                <option value='1 BHK'>1 BHK</option>
-                <option value='2 BHK'> 2 BHK</option>
-                <option value='3 BHK'>3 BHK</option>
+                <option value='null'>Property type</option>
+                {
+                  showPropertyType.map((item,index)=>(
+                    <option key={index} >{item.propertyType} </option>
+                  ))
+                }
               </select>
             </div>
             <div className='row px-2'>

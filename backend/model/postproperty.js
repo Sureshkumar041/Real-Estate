@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
+    sellerid: { type: String },
     address: { type: String },
     city: { type: String },
     state: { type: String },
@@ -12,7 +13,7 @@ const schema = new Schema({
     sqft: { type: Number },
     rate: { type: Number },
     info: { type: String, data: Buffer }
-},{
+}, {
     versionKey: false,
     timestamps: true
 });

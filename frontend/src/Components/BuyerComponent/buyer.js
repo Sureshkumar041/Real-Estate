@@ -8,7 +8,8 @@ function BuyerComponent () {
   const [showlocation, setShowlocation] = useState([]),
     [token, setToken] = useState(false),
     [form, setForm] = useState(false),
-    [showProperty, setShowProperty] = useState([])
+    [showProperty, setShowProperty] = useState([]),
+    [showPropertyType,setShowPropertyType] = useState([]);
   const API = 'http://localhost:3333/realestate'
 
   const handleChange = e => {
@@ -137,10 +138,26 @@ function BuyerComponent () {
       })
   }
 
+  const getPropertyType = async (path) => {
+    await fetch(`${API}/${path}`)
+      .then(async res => {
+        const fetchData = await res.json();
+        return fetchData;
+      })
+      .then(fetchData => {
+        console.log('Get property type: ',fetchData)
+        setShowPropertyType(fetchData.data.data);
+      })
+      .catch(err => {
+        console.log("Get property type: ", err);
+      })
+  }
+
   useEffect(e => {
     cityMaster()
     tokenValidate()
     getProperty()
+    getPropertyType('showpropertytype')
   }, [])
 
   return (

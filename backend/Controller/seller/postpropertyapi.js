@@ -14,7 +14,8 @@ const imageStore = async (req, res) => {
             sqft = req.body.sqft,
             imageArray = req.files,
             info = req.body.info,
-            pincode = req.body.pincode;
+            pincode = req.body.pincode,
+            sellerid = req.body.sellerid
         let image = [];
         [...imageArray].forEach(element => {
             image.push(url + "/uploads/" + element.filename);
@@ -29,7 +30,8 @@ const imageStore = async (req, res) => {
             type,
             sqft,
             rate,
-            info
+            info,
+            sellerid
         };
         var property = new propertySchema(data);
         property = await property.save();

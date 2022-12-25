@@ -10,6 +10,10 @@ const addPropertyCon = require('../Controller/admin/propertyForapi')
 const cartImage = require('../Controller/common/cartImage')
 const showPropertyFor = require('../Controller/common/showPropertyFor')
 const addingPropertyType = require('../Controller/admin/propertyTypeApi')
+const showPropertyType = require('../Controller/common/showPropertyType')
+const auth = require('../Controller/auth')
+const verifyToken = require('../middleware/verify')
+const ownProperty = require('../Controller/seller/showOwnProperty')
 
 // User API...!
 route.post('/realestate/signup', signup)
@@ -22,10 +26,13 @@ route.post(
 route.post('/realestate/addlocation', addLocation)
 route.post('/realestate/propertyfor', addPropertyCon)
 route.post('/realestate/propertyType', addingPropertyType)
-
 // Get API ...!
 route.get('/realestate/cartimage', cartImage)
 route.get('/realestate/showlocation', showLocation)
 route.get('/realestate/showpropertyfor', showPropertyFor)
+route.get('/realestate/showpropertytype',showPropertyType)
+route.get('realestate/ownproperty',ownProperty)
+
+route.post('/realestate/auth',verifyToken,auth)
 
 module.exports = route

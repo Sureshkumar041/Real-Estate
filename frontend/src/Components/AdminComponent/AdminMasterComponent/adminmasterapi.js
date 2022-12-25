@@ -5,18 +5,19 @@ import './adminmasterapi.css'
 const AdminMaster = () => {
   const API = 'http://localhost:3333/realestate'
   const [location, setLocation] = useState(''),
-    [showlocation, setShowlocation] = useState([]),
-    [locationVisibility, setLocationVisibility] = useState(false),
     [propertyFor, setPropertyFor] = useState(''),
+    [propertyType, setPropertyType] = useState(''),
+    [showlocation, setShowlocation] = useState([]),
+    [showPropertyType, setShowPropertyType] = useState([]),
     [showProperty, setShowProperty] = useState([]),
+    [locationVisibility, setLocationVisibility] = useState(false),
     [propertyVisibility, setPropertyVisibility] = useState(false),
-    [propertyTypeVisibility, setPropertyTypeVisibility] = useState(true)
+    [propertyTypeVisibility, setPropertyTypeVisibility] = useState(false);
 
   const addLocation = async e => {
     e.preventDefault()
     console.log('ADD LOCATION START...!')
     console.log('LOcation: ', location)
-
     try {
       const addLocation = {
         location
@@ -44,21 +45,6 @@ const AdminMaster = () => {
       console.log(err.message)
     }
   }
-
-  // const createPro = (formData, path) => {
-  //     console.log("Data : ", propertyFor, "Path: ", path, 'URL: ', `${API}/${path}`);
-  //     return fetch(`${API}/propertyfor`, {
-  //         method: "post",
-  //         headers: {
-  //             Accept: "application/json",
-  //         },
-  //         body: formData,
-  //     })
-  //         .then((response) => {
-  //             return response.json();
-  //         })
-  //         .catch((err) => console.log(err));
-  // }
 
   const onSubmit = async e => {
     e.preventDefault()
@@ -93,53 +79,34 @@ const AdminMaster = () => {
     }
   }
 
-  // const onSubmit = async (e) => {
-  //     e.preventDefault();
-  //     const formData = new FormData();
-  //     formData.append('propertyFor', propertyFor);
-  //     console.log("Property for: ", propertyFor);
-  //     await createPro(formData, 'propertyfor').then((res) => {
-  //         console.log('res', res)
-  //         alert(res.message);
-  //         e.target.reset();
-  //     }).catch((res) => {
-  //         alert(res.message)
-  //     })
-  // }
+  const onSubmitType = async (e, path) => {
+    e.preventDefault();
+    const data = {
+      propertyType
+    };
 
-  // const addPropertyFor = (e) => {
-  //     e.preventDefault();
-
-  //     try {
-  //         const addPropertyFor = {
-  //             propertyFor: propertyFor
-  //         };
-  //         const url = 'http://localhost:3333/realestate/addPropertyFor';
-  //         const requestOptions = {
-  //             method: 'POST',
-  //             headers: {
-  //                 'Content-Type': 'application/json'
-  //             },
-  //             body: JSON.stringify(addPropertyFor)
-  //         };
-
-  //         fetch(url, requestOptions)
-  //             .then(async (res) => {
-  //                 const fetchDataType = await res.json();
-  //                 console.log("Response: ", fetchDataType);
-  //                 if (fetchDataType.data.status >= 199 && fetchDataType.data.status < 300) {
-  //                     alert(fetchDataType.data.message)
-  //                 }
-  //                 else {
-  //                     alert(fetchDataType.data.message);
-  //                 }
-  //             });
-  //     } catch (err) {
-  //         console.log(err.message);
-  //     }
-  // }
-
-  //
+    await fetch(`${API}/${path}`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(async res => {
+        const fetchData = await res.json();
+        console.log("Fetchdata: ", fetchData);
+        if (res.status >= 199 && res.status < 300) {
+          alert(fetchData.data.data)
+          e.target.reset()
+        } else {
+          alert(fetchData.data.data)
+        }
+        return fetchData;
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 
   const showPlace = () => {
     console.log('City master...!')
@@ -279,12 +246,39 @@ const AdminMaster = () => {
     )
   }
 
-  //   const addPropertyTye = () => {
-  //     return (
-  //       <>
-  //       </>
-  //     )
-  //   }
+  // Show Property Type Table...!
+  const showPropertyTypeTable = () => {
+    return (
+      <>
+        <div className='row my-5 mx-5 tableDiv'>
+          <div className='col locations border-bottom border-dark'>
+            <table className='table table-hover table-bordered border-dark bg-opacity-75 text-center'>
+              <thead>
+                <tr>
+                  <th>SI.No</th>
+                  <th>Property Type</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {showPropertyType.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1} </td>
+                    <td>{item.propertyType}</td>
+                    <td>
+                      <button className='btn bg-danger text-white'>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </>
+    )
+  }
 
   // Master
   const master = () => {
@@ -325,13 +319,13 @@ const AdminMaster = () => {
             <div className='row my-5'>
               <h3>Add property type</h3>
               <div className='col-10'>
-                <form className='form' onSubmit={e => onSubmit(e,'')}>
+                <form className='form' onSubmit={e => onSubmitType(e, 'propertytype')}>
                   <div className='row'>
                     <div className='col-7'>
                       <input
                         className='form-control border-info'
-                        name='propertyFor'
-                        onChange={e => setPropertyFor(e.target.value)}
+                        name='propertyType'
+                        onChange={e => setPropertyType(e.target.value)}
                         placeholder='Enter the property type'
                         required
                       />
@@ -349,9 +343,10 @@ const AdminMaster = () => {
                     setPropertyTypeVisibility(!propertyTypeVisibility)
                   }
                 >
-                  {propertyVisibility === true ? 'Hide' : 'Show property type'}
+                  {propertyTypeVisibility === true ? 'Hide' : 'Show property type'}
                 </button>
               </div>
+              { propertyTypeVisibility && showPropertyTypeTable()}
             </div>
           </div>
         </div>
@@ -361,9 +356,7 @@ const AdminMaster = () => {
 
   // Master API for location
   const cityMaster = () => {
-    console.log('City master...!')
     const url = 'http://localhost:3333/realestate/showlocation'
-
     fetch(url)
       .then(async res => {
         const fetchData = await res.json()
@@ -371,10 +364,23 @@ const AdminMaster = () => {
       })
       .then(fetchData => {
         setShowlocation(fetchData.data.location)
-        console.log('fetchData.data.location: ', fetchData.data.location)
       })
       .catch(err => {
         console.log('Show location: ', err.message)
+      })
+  }
+
+  const getPropertyType = async (path) => {
+    await fetch(`${API}/${path}`)
+      .then(async res => {
+        const fetchData = await res.json();
+        return fetchData;
+      })
+      .then(fetchData => {
+        setShowPropertyType(fetchData.data.data);
+      })
+      .catch(err => {
+        console.log("Get property type: ", err);
       })
   }
 
@@ -382,6 +388,7 @@ const AdminMaster = () => {
     cityMaster()
     showPlace()
     getProperty()
+    getPropertyType('showpropertytype')
   }, [])
 
   return (
