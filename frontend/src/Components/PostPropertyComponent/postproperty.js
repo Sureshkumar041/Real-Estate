@@ -2,7 +2,7 @@ import './postproperty.css'
 import Seller from '../SellerComponent/seller'
 import React, { useState, useEffect } from 'react'
 
-export function PostProperty () {
+export function PostProperty() {
   const API = 'http://localhost:3333/realestate'
 
   const [address, setAddress] = useState(''),
@@ -17,22 +17,22 @@ export function PostProperty () {
     [propertyFor, setpropertyFor] = useState(''),
     [showlocation, setShowlocation] = useState([]),
     [showProperty, setShowProperty] = useState([]),
-    [showPropertyType,setShowPropertyType] = useState([]);
+    [showPropertyType, setShowPropertyType] = useState([]);
 
   const handleChange = async e => {
     const files = e.target.files
     var multipleFiles = []
-    ;[...files].forEach(element => {
-      multipleFiles.push(element)
-    })
+      ;[...files].forEach(element => {
+        multipleFiles.push(element)
+      })
     setImage(multipleFiles)
   }
 
   // const token =JSON.parse(localStorage.getItem('token'));
   //   console.log('Token: ',token);
   const createPro = product => {
-    const token =JSON.parse(localStorage.getItem('token'));
-    console.log('Token: ',token);
+    const token = JSON.parse(localStorage.getItem('token'));
+    console.log('Token: ', token);
     return fetch(`${API}/property`, {
       method: 'post',
       headers: {
@@ -49,6 +49,7 @@ export function PostProperty () {
 
   const onSubmit = async e => {
     e.preventDefault()
+    const sellerData = JSON.parse(localStorage.getItem('userdetails'));
     let formData = new FormData()
     formData.append('address', address)
     formData.append('city', city)
@@ -63,6 +64,7 @@ export function PostProperty () {
     formData.append('sqft', sqft)
     formData.append('rate', rate)
     formData.append('info', info)
+    formData.append('sellerId', sellerData.id)
     setCity('')
     setAddress('')
     setImage('')
@@ -83,7 +85,7 @@ export function PostProperty () {
         alert(res.message)
       })
   }
-
+  
   const cityMaster = () => {
     const url = 'http://localhost:3333/realestate/showlocation'
     fetch(url)
@@ -123,7 +125,7 @@ export function PostProperty () {
         return fetchData;
       })
       .then(fetchData => {
-        console.log('Get property type: ',fetchData)
+        console.log('Get property type: ', fetchData)
         setShowPropertyType(fetchData.data.data);
       })
       .catch(err => {
@@ -231,7 +233,7 @@ export function PostProperty () {
               >
                 <option value='null'>Property type</option>
                 {
-                  showPropertyType.map((item,index)=>(
+                  showPropertyType.map((item, index) => (
                     <option key={index} >{item.propertyType} </option>
                   ))
                 }

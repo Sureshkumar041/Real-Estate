@@ -14,6 +14,7 @@ const showPropertyType = require('../Controller/common/showPropertyType')
 const auth = require('../Controller/auth')
 const verifyToken = require('../middleware/verify')
 const ownProperty = require('../Controller/seller/showOwnProperty')
+const updateProperty = require('../Controller/seller/updateProperty')
 
 // User API...!
 route.post('/realestate/signup', signup)
@@ -26,13 +27,16 @@ route.post(
 route.post('/realestate/addlocation', addLocation)
 route.post('/realestate/propertyfor', addPropertyCon)
 route.post('/realestate/propertyType', addingPropertyType)
+route.post('/realestate/auth', verifyToken, auth)
+
 // Get API ...!
 route.get('/realestate/cartimage', cartImage)
 route.get('/realestate/showlocation', showLocation)
 route.get('/realestate/showpropertyfor', showPropertyFor)
-route.get('/realestate/showpropertytype',showPropertyType)
-route.get('realestate/ownproperty',ownProperty)
+route.get('/realestate/showpropertytype', showPropertyType)
+route.get('/realestate/ownproperty/:id?', verifyToken, ownProperty)
 
-route.post('/realestate/auth',verifyToken,auth)
+// Put API...!
+route.put('/realestate/updateproperty/:id?', verifyToken, Fileupload.Fileupload('./uploads').array('image', 10), updateProperty)
 
 module.exports = route

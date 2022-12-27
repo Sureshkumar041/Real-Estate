@@ -4,12 +4,12 @@ import { FaUser } from 'react-icons/fa'
 import './buyer.css'
 import PropertyCart from '../UserComponent/PropertyComponent/PropertyComponent/propertyCartApi'
 
-function BuyerComponent () {
+function BuyerComponent() {
   const [showlocation, setShowlocation] = useState([]),
     [token, setToken] = useState(false),
     [form, setForm] = useState(false),
-    [showProperty, setShowProperty] = useState([]),
-    [showPropertyType,setShowPropertyType] = useState([]);
+    [showProperty, setShowProperty] = useState([]);
+    // [showPropertyType, setShowPropertyType] = useState([]);
   const API = 'http://localhost:3333/realestate'
 
   const handleChange = e => {
@@ -33,16 +33,18 @@ function BuyerComponent () {
                   className='form-select rounded-pill'
                   onChange={e => handleChange(e)}
                 >
-                  {showlocation.map(item => (
-                    <option
-                      value={item.location}
-                      key={item._id}
-                      onClick={e => handleChange(e)}
-                      name='locations'
-                    >
-                      {item.location}
-                    </option>
-                  ))}
+                  <option>Choose the location</option>
+                  {
+                    showlocation.map(item => (
+                      <option
+                        value={item.location}
+                        key={item._id}
+                        onClick={e => handleChange(e)}
+                        name='locations'
+                      >
+                        {item.location}
+                      </option>
+                    ))}
                 </select>
               </div>
               <div className='col-2 location my-2'>
@@ -52,7 +54,7 @@ function BuyerComponent () {
                 >
                   <option onChange={e => handleChange(e)}>Property type</option>
                   {showProperty.map((item, index) => (
-                    <option>{item.propertyFor} </option>
+                    <option key={index} >{item.propertyFor} </option>
                   ))}
                 </select>
               </div>
@@ -145,8 +147,8 @@ function BuyerComponent () {
         return fetchData;
       })
       .then(fetchData => {
-        console.log('Get property type: ',fetchData)
-        setShowPropertyType(fetchData.data.data);
+        console.log('Get property type: ', fetchData)
+        // setShowPropertyType(fetchData.data.data);
       })
       .catch(err => {
         console.log("Get property type: ", err);

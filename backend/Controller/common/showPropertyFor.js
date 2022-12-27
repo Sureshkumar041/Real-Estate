@@ -7,7 +7,6 @@ const showPropertyFor = async (req, res, next) => {
       message: 'Success',
       data: propertyFor
     }
-    console.log("Show property for: ",propertyFor);
     res.status(200).json({ data: data })
     
   } catch (err) {

@@ -21,6 +21,7 @@ const Fileupload = (path) => {
         }
     })
     const uploaded = multer({ storage: storage });
+    console.log("Uploads");
     return uploaded;
 }
 module.exports = {

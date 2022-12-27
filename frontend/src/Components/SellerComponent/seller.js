@@ -12,7 +12,7 @@ function Seller() {
                         <Link to={'/realestate/postproperty'} className='row text-decoration-none text-center text-white'>
                             <p className='n'>Post Property</p>
                         </Link>
-                        <Link to={'/manageproperty'} className='row text-decoration-none text-center text-white'>
+                        <Link to={'/realestate/manageproperty'} className='row text-decoration-none text-center text-white'>
                             <p className='n'>Manage Property</p>
                         </Link>
                         <Link to={'/managebuyer'} className='row text-decoration-none text-center text-white'>

@@ -14,6 +14,7 @@ import PostProperty from './Components/PostPropertyComponent/postproperty';
 import BuyerComponent from './Components/BuyerComponent/buyer';
 import ImgMediaCard from './Components/materialComponent/material';
 import AdminSellerMgmt from './Components/AdminComponent/AdminMgmtSellerComponent/adminSellerMgmt';
+import MyProperty from './Components/SellerComponent/ManageSellerComponent/manageseller';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,6 +30,7 @@ root.render(
       <Route path='/realestate/postproperty' element={<PostProperty />} />
       <Route path='/realestate' element={<BuyerComponent />} />
       <Route path='/realestate' element={<ImgMediaCard />} />
+      <Route path='/realestate/manageproperty' element={<MyProperty />} />
       <Route path='realestate/admin/sellermgmt' element={<AdminSellerMgmt />} />
     </Routes>
   </BrowserRouter>

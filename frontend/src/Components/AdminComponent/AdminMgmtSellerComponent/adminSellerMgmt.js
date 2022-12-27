@@ -6,58 +6,11 @@ const AdminSellerMgmt = () => {
 
     const [showCart, setShowCart] = useState([]);
 
-    // Table header...!
-    // const tableHeading = (showCart) => {
-    //     const value = Object.keys(showCart[0]);
-    //     for (let index = 0; index < value.length; index++) {
-    //         console.log("IMAGE: ", value[index]);
-    //     }
-    //     return (
-    //         <>
-    //             <thead>
-    //                 <tr>
-    //                     {
-    //                         value.map((item, index) => (
-    //                             <th className='mx-2 bg-info border' key={index} >{item} </th>
-    //                         ))
-    //                     }
-    //                 </tr>
-    //             </thead>
-    //         </>
-    //     )
-    // }
-
-    // Table body...!
-    // const tableBody = (value) => {
-    //     return (
-    //         <>
-    //             {
-    //                 showCart.map((item, index) => (
-    //                     <tr className='table border' key={index} >
-    //                         {
-    //                             showCart.map((item, index) => (
-    //                                 <td key={index}>{item.type} </td>
-    //                             ))
-    //                         }
-    //                     </tr>
-    //                 ))
-    //             }
-    //         </>
-    //     )
-    // }
-
     const SellerDetails = (showCart) => {
         console.log("showCart: ", showCart);
-        // const value = Object.keys(showCart[0]);
-        // for (let index = 0; index < value.length; index++) {
-        //     console.log("IMAGE: ", value[index]);
-        // }
         return (
             <>
                 <div className='sellermgmt'>
-                    <div>
-                        {/* <p>Admin seller Manangement</p> */}
-                    </div>
                     <div className='sellerDetails'>
                         <table className='table table-hover'>
                             <thead className='bg-info border' >
