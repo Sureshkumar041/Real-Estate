@@ -33,7 +33,7 @@ root.render(
       <Route path='/realestate' element={<ImgMediaCard />} />
       <Route path='/realestate/manageproperty' element={<MyProperty />} />
       <Route path='/realestate/admin/sellermgmt' element={<AdminSellerMgmt />} />
-      <Route path='/realestate/seller/updateproperty' element={<UpdateProperty />} />
+      <Route path='/realestate/seller/updateproperty/:id' element={<UpdateProperty />} />
     </Routes>
   </BrowserRouter>
 );

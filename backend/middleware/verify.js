@@ -11,7 +11,12 @@ const verifyToken = async (req, res, next) => {
                 if (err) {
                     console.log("Tokensss...!");
                     console.log("Token error: ", err.message);
-                    return res.status(400).json({ data: err.message });
+                    // return res.status(400).json({ data: err.message });
+                    const data = {
+                        message : 'Failed',
+                        data : err.message
+                    }
+                    return res.status(400).json({data : data})
                 }
                 else {
                     console.log("Validate user...!");

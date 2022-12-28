@@ -1,0 +1,14 @@
+.edit {
+    margin-left: 25%;
+    margin-top: -0%;
+    width: 100%;
+    height: fit-content;
+}
+
+.editProperty {
+    position: absolute;
+}
+
+label {
+    padding: 5px 0px;
+}

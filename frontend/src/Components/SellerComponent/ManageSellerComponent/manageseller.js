@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Seller from "../seller";
 import './manageseller.css'
 import notFound from '../../../Image/icons8-error-cloud.gif'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 // import { FaEdit, FaDelete } from 'react-icons/fa'
 
 function MyProperty() {
@@ -382,7 +382,15 @@ function MyProperty() {
                                             <td>{item.propertyFor} </td>
                                             <td>{item.type} </td>
                                             <td>
-                                                <button className="btn bg-info px-2" onClick={() => actionProperty(item._id, 'editproperty', 'get')}>Edit</button>
+                                                {/* <Link to={`/realestate/seller/updateproperty/${item._id}`} > */}
+                                                {/* <Link  to={{
+                                                    pathname: '/realestate/seller/updateproperty/:id',
+                                                    state: {propertyId: item._id}
+                                                }} > */}
+                                                <Link to={'/realestate/seller/updateproperty/:id'} state={{propertyId:item._id}}>
+                                                    <button className='btn btn-info'>Edit</button>
+                                                </Link>
+                                                {/* <button className="btn bg-info px-2" onClick={() => actionProperty(item._id, 'editproperty', 'get')}>Edit</button> */}
                                                 <button className="btn bg-danger mx-3" onClick={() => actionProperty(item._id, 'deleteproperty', 'delete')}>Delete</button>
                                             </td>
                                         </tr>

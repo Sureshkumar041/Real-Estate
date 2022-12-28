@@ -1,10 +1,11 @@
 import './postproperty.css'
 import Seller from '../SellerComponent/seller'
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router'
 
 export function PostProperty() {
   const API = 'http://localhost:3333/realestate'
-
+  const navigate = useNavigate();
   const [address, setAddress] = useState(''),
     [city, setCity] = useState(''),
     [state, setState] = useState(''),
@@ -39,8 +40,14 @@ export function PostProperty() {
       },
       body: product
     })
-      .then(response => {
-        return response.json()
+      .then(async response => {
+        const fetchData = await response.json()
+        if (response.status >= 199 && response.status < 300) {
+          alert(fetchData.data.data)
+          navigate('/realestate/manageproperty')
+        } else {
+          alert(fetchData.data.data)
+        }
       })
       .catch(err => console.log(err))
   }
@@ -74,14 +81,15 @@ export function PostProperty() {
     setpropertyFor('')
     setState('')
     await createPro(formData)
-      .then(res => {
-        console.log('res', res)
-        alert(res.message)
-        e.target.reset()
-      })
-      .catch(res => {
-        alert(res.message)
-      })
+      // .then(res => {
+      //   console.log('res', res)
+      //   alert(res.message)
+
+      //   e.target.reset()
+      // })
+      // .catch(res => {
+      //   alert(res.message)
+      // })
   }
 
   const cityMaster = () => {

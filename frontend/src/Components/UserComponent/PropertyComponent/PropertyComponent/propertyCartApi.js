@@ -46,7 +46,7 @@ const PropertyCart = () => {
     }
 
     const sendEnquiry = (e) => {
-        console.log("Send enquiry");
+        console.log("Send enquiry: ",e);
         // alert('You want send enquiry');
         if(window.confirm('You want send enquiry')){
             console.log('Sent');
@@ -68,8 +68,6 @@ const PropertyCart = () => {
             }
         }
     }
-
-
 
     const DynamicCart = () => {
         return (

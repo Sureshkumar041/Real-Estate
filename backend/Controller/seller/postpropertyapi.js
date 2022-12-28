@@ -1,7 +1,7 @@
 const propertySchema = require('../../model/postproperty');
 
 
-const imageStore = async (req, res) => {
+const imageStore = async (req, res,next) => {
     try {
         const url = req.protocol + "://" + req.get("host");
         const imgpath = url + "/public/" + req.files;
@@ -34,11 +34,26 @@ const imageStore = async (req, res) => {
             sellerId
         };
         var property = new propertySchema(data);
-        property = await property.save();
-        return res.status(200).json({ message: "successfully added" });
-
+        await property.save(err => {
+            if (err) {
+                throw new Error('Unable to upload your property')
+            }
+            else {
+                const data = {
+                    message: 'Success',
+                    data: 'Property upload successfully'
+                }
+                res.status(200).json({ data: data })
+                next();
+            }
+        })
     } catch (err) {
         return res.status(400).json({ message: err.message })
+        const data = {
+            message: 'Failed',
+            data: err.message
+        }
+        res.status(400).json({ data: data })
     }
 
 
