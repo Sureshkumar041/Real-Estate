@@ -13,7 +13,7 @@ app.use(express.json());
 // API ...
 app.use('/', require('./routes/route'));
 app.set("public", "./public");
-app.use(express.urlencoded({ limit: "100mb", extended: true }));
+// app.use(express.urlencoded({ limit: "100mb", extended: true }));
 app.use("/", express.static(path.join(__dirname, "public")))
 app.use( "/uploads",express.static(path.join(__dirname, "/uploads"), { maxAge: 7 * 86400000 }));
 

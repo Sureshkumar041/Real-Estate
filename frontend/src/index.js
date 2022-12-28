@@ -15,6 +15,7 @@ import BuyerComponent from './Components/BuyerComponent/buyer';
 import ImgMediaCard from './Components/materialComponent/material';
 import AdminSellerMgmt from './Components/AdminComponent/AdminMgmtSellerComponent/adminSellerMgmt';
 import MyProperty from './Components/SellerComponent/ManageSellerComponent/manageseller';
+import UpdateProperty from './Components/SellerComponent/UpdatePropertyComponent/updatePropertyApi';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -31,7 +32,8 @@ root.render(
       <Route path='/realestate' element={<BuyerComponent />} />
       <Route path='/realestate' element={<ImgMediaCard />} />
       <Route path='/realestate/manageproperty' element={<MyProperty />} />
-      <Route path='realestate/admin/sellermgmt' element={<AdminSellerMgmt />} />
+      <Route path='/realestate/admin/sellermgmt' element={<AdminSellerMgmt />} />
+      <Route path='/realestate/seller/updateproperty' element={<UpdateProperty />} />
     </Routes>
   </BrowserRouter>
 );

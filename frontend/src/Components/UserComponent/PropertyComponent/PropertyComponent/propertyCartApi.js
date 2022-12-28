@@ -6,10 +6,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import SendIcon from '@mui/material/ListItemSecondaryAction'
+import { useNavigate } from "react-router";
 
 const PropertyCart = () => {
 
     const [showCart, setShowCart] = useState([]);
+    const navigate = useNavigate();
 
     const cartImage = (API) => {
         fetch('http://localhost:3333/realestate/cartimage')
@@ -42,6 +45,32 @@ const PropertyCart = () => {
         )
     }
 
+    const sendEnquiry = (e) => {
+        console.log("Send enquiry");
+        // alert('You want send enquiry');
+        if(window.confirm('You want send enquiry')){
+            console.log('Sent');
+        }
+    }
+
+    const enquiry = (e) => {
+        console.log("Enquiry: ", e);
+        const token = JSON.parse(localStorage.getItem('token'))
+        console.log("Token: ", token);
+        if (token) {
+            sendEnquiry(e)
+        } else {
+            // alert('Login');
+            if (window.confirm('Login must')) {
+                navigate('/realestate/login')
+            } else {
+                console.log("Not come..!");
+            }
+        }
+    }
+
+
+
     const DynamicCart = () => {
         return (
             <div className="cartD row">
@@ -64,7 +93,10 @@ const PropertyCart = () => {
                                 </CardContent>
                                 <CardActions>
                                     <Button size="small" variant="contained" color="success" >{item.propertyFor} </Button>
-                                    <Button size="small" variant="contained" color="primary">{item.type} </Button>
+                                    <Button size="small" variant="outlined" color="primary">{item.type} </Button>
+                                    <Button size="small" variant="contained" endIcon={<SendIcon />} onClick={e => enquiry(item)}>
+                                        Enquiry
+                                    </Button>
                                 </CardActions>
                             </Card>
                         </div>

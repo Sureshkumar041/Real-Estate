@@ -21,15 +21,13 @@ export function PostProperty() {
 
   const handleChange = async e => {
     const files = e.target.files
-    var multipleFiles = []
-      ;[...files].forEach(element => {
-        multipleFiles.push(element)
-      })
+    var multipleFiles = [];
+    [...files].forEach(element => {
+      multipleFiles.push(element)
+    })
     setImage(multipleFiles)
   }
 
-  // const token =JSON.parse(localStorage.getItem('token'));
-  //   console.log('Token: ',token);
   const createPro = product => {
     const token = JSON.parse(localStorage.getItem('token'));
     console.log('Token: ', token);
@@ -85,7 +83,7 @@ export function PostProperty() {
         alert(res.message)
       })
   }
-  
+
   const cityMaster = () => {
     const url = 'http://localhost:3333/realestate/showlocation'
     fetch(url)

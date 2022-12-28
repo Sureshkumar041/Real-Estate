@@ -12,6 +12,22 @@
     margin-top: -30%;
 }
 
-.error{
+.error {
     margin-left: 13%;
+}
+
+.edit {
+    margin-left: 25%;
+    margin-top: -0%;
+    width: 100%;
+    height: fit-content;
+    z-index: 2;
+}
+
+.editProperty {
+    position: absolute;
+}
+
+label {
+    padding: 5px 0px;
 }
